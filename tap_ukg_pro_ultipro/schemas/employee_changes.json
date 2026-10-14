@@ -1,1 +1,277 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "preferredName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emailAddress": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "languageCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "personId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userIntegrationKey": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullTimeOrPartTime": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "workLocation": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "projectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel1Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel2Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel3Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel4Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workPhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeAddress1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeAddress2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "city": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "state": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "zipCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "terminationDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "hireDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "supervisorName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "prefix": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "suffix": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "alternateEmailAddress": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "gender": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emplStatusStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateInJob": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfLastHire": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "jobGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "alternateJobTitle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

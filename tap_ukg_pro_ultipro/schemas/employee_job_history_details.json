@@ -1,1 +1,386 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "annualSalary": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "employeeType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "flsaCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullTimeOrPartTime": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "isJobChange": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isOrgchange": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isOutsideGuidelines": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isOutsideRange": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isPromotion": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isRateChange": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isSystem": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isTransfer": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobEffectiveDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "jobGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "locationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel1Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel2Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel3Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel4Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "otherRate1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate3": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate4": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "payGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payPeriodCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payScaleCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "percentChange": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "periodPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "piecePayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "positionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reasonCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryGrade": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "scheduledAnnualHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "scheduledFullTimeEquivalency": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "scheduledWorkHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "shiftCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shiftGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "stepNumber": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "supervisorId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorNameFirst": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorNameLast": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorNameSuffix": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorNotInList": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "unionNational": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "usePayScales": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "weeklyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homeCompanyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "integrationEffectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "projectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "numberOfPayments": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "weeklyHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "isViewableByEmployee": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "createdByUserId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

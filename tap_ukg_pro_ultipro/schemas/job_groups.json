@@ -1,1 +1,26 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "jobGroupCode": {
+      "type": "string"
+    },
+    "jobGroupCodeDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobGroupNotes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobGroupCountryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

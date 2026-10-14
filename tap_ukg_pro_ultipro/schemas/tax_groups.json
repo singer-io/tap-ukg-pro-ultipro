@@ -1,1 +1,96 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "taxCalcGroupIdCode": {
+      "type": "string"
+    },
+    "taxCalcGroupDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "depositFrequencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "depositFrequencyDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalcGroupTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalcGroupTypeDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalcGroupReportId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxGroupCountryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateFinalWagesPaid": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateMonthReset": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateQuarterReset": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateYearReset": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "taxGroupIsNotSubjectToSocMedTax": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "taxGroupIsNotPayingWages": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "taxGroupIsInactive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

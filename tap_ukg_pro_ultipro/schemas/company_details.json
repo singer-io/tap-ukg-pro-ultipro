@@ -1,1 +1,200 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "isMasterCompany": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "masterCompanyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": "string"
+    },
+    "companyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCity": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressState": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressZipCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCounty": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneNumberExtension": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "federalTaxId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel1Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel2Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel3Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel4Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyDoingBusinessAsName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyGLSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalculationGroupId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "contractNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "otherFederalTaxId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel1Label": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel2Label": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel3Label": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel4Label": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateOfBusinessClosure": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "usePositionManagement": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "useMultipleJobGroups": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "integrationRecordId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

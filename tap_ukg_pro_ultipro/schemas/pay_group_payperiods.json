@@ -1,1 +1,270 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "isActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeFiscalEndDone": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimePeriodClosed": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimePeriodOpened": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "fiscalYearEnd": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isCtsCreated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isPeriodClosed": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isQtdobPerControl": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isYtdobPerControl": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriodNumber": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "mqyEndFlag": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "obType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "payDateSeq": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payPeriodId": {
+      "type": "integer"
+    },
+    "periodControl": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodEndDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "periodStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "periodType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "suspAutoPay": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "suspDirectDeposit": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userIdChanged": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userIdCreated": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "auditKey": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "payrollStateId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "combineNachaFileName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "combineNachaFileOverride": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "txFilAppDateTime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "txFilAppUserId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "allowWebPyrlAfterYeRecon": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "payrollChangeFlags": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "payrollTransitionFlags": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "instantCheckMoveRule": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "bringInPayrollBatchLoad": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "bringInPpiLoad": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "bringInRetroPayLoad": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "lmwActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "roePayDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "taxArrearsCollectEnabled": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

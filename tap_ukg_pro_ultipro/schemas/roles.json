@@ -1,1 +1,38 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "rolDefaultRole": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "rolDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "rolID": {
+      "type": "number"
+    },
+    "rolName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "rolDefaultRoleTerminated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "rolBI": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

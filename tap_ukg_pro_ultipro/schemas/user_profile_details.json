@@ -1,1 +1,209 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "firstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "personId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "email": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workPhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "userName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "roleId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "roleName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "roleDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "integrationUserKey": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterCompanyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterDeductionGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterEmployeeType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterFullTimeOrPartTime": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterJobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterLocationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterOrganizationLevel1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterOrganizationLevel2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterOrganizationLevel3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterOrganizationLevel4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterPayGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterProjectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterSalaryOrHourly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterShiftCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterSupervisorID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "filterTaxCalculationGroupID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "masterCompany": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "masterCompanyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homeCompany": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homeCompanyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

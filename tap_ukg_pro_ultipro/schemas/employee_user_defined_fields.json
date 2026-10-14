@@ -1,1 +1,1246 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "personnelUserDefinedFields": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "personnelUDField01": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField02": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField03": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField04": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField05": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField06": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField07": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField08": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField09": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField10": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField11": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField12": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField13": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "personnelUDField14": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "internationalUserDefinedFields": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "internationalUDField01": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField02": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField03": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField04": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField05": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField06": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField07": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField08": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField09": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField10": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField11": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField12": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField13": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "internationalUDField14": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "field": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "value": {
+              "type": [
+                "null",
+                "string",
+                "number"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "companyUserDefinedFieldsList": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "companyUserDefinedFields": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "companyUDField01": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField02": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField03": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField04": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField05": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField06": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField07": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField08": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField09": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField10": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField11": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField12": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField13": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField14": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField15": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField16": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField17": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField18": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField19": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField20": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField21": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField22": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField23": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField24": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField25": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField26": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField27": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField28": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              },
+              "companyUDField29": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "properties": {
+                  "field": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

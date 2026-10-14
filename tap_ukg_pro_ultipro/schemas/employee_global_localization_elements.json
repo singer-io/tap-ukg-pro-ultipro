@@ -1,1 +1,62 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "fieldId": {
+      "type": "string"
+    },
+    "fieldName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "booleanValue": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "numericValue": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateTimeValue": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "stringValue": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "created": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "effective": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

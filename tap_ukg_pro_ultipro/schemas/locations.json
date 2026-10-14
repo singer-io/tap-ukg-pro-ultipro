@@ -1,1 +1,62 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "locationCode": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "addressLine1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "city": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "state": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "zipOrPostalCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "locationGLSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}
