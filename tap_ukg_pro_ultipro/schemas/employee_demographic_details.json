@@ -1,1 +1,349 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "ethnicDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "additionalName1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "additionalName2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressIsOnTaxBoundary": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLatitude": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "disabilityType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "formerName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthBloodType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthEyes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHair": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHeightFeet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHeightInches": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthLastDonateDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "healthWeight": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "previousSSN": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originLocation": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressSms": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhoneIsPrivate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "lastNameNotSameAsSSCard": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "personId": {
+      "type": "string"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "firstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "preferredName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "namePrefixCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameSuffixCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emailAddress": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emailAddressAlternate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhoneID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhoneCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCity": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressState": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressZipCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCounty": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateOfBirth": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "gender": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ethnicIdCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isSmoker": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isDisabled": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "maritalStatusCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ssn": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ssnIsSuppressed": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "userID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "integrationRecordId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cellPhoneNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

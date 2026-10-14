@@ -1,1 +1,124 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "account": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "accountType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "amountOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "directDepositOrPrenote": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "depositRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeBankId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeBankName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeBankRoutingNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "firstPrenotePayDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "sequenceNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeInstitutionNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "foreignAccountNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "foreignAccountNumberType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "accountRecordId": {
+      "type": "string"
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "accountIsInactive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

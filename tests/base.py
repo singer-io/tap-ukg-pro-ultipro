@@ -35,7 +35,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
         """The expected streams and metadata about the streams."""
         return {
             "company_details": {
-                cls.PRIMARY_KEYS: { "companyID" },
+                cls.PRIMARY_KEYS: { "companyId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -49,7 +49,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "insurance_rates": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "deductionCode" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -147,7 +147,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "earnings_history_base_elements": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "companyId", "employeeId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -336,7 +336,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "employee_deductions": {
-                cls.PRIMARY_KEYS: { "employeeId", "dedCode" },
+                cls.PRIMARY_KEYS: { "employeeID", "deductionCode" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,

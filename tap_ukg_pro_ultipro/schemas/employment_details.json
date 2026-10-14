@@ -1,1 +1,478 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "companyID": {
+      "type": "string"
+    },
+    "companyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeID": {
+      "type": "string"
+    },
+    "jobDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroupDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryJobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel1Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel2Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel3Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel4Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originalHireDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "lastHireDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "fullTimeOrPartTimeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryWorkLocationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "languageCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryProjectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workPhoneNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workPhoneExtension": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workPhoneCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateInJob": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateLastWorked": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfBenefitSeniority": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfSeniority": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "earningGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeStatusCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobChangeReasonCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "leaveReasonCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorFirstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorLastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "autoAllocate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "clockCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateLastPayDatePaid": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfEarlyRetirement": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfLocalUnion": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfNationalUnion": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfRetirement": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfSuspension": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfTermination": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "datePaidThru": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "statusStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "hireSource": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isAutoAllocated": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isAutopaid": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isMultipleJob": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "mailstop": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "okToRehire": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payPeriod": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "plannedLeaveReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "positionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "scheduledAnnualHrs": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "scheduledFTE": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "scheduledWorkHrs": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "shift": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shiftGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "termReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "terminationReasonDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "termType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timeclockID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "unionLocal": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "unionNational": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "weeklyHours": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "supervisorEmployeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorCOID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorCompanyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyGLSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "locationGLSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

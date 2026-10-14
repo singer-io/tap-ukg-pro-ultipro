@@ -1,1 +1,74 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobCode": {
+      "type": "string"
+    },
+    "title": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobFamilyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "longDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobEEOCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "flsaTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "integrationRecordId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workEnvironmentCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "workEnvironmentDesc": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

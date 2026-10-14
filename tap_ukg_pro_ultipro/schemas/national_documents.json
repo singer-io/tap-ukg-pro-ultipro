@@ -1,1 +1,60 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "nationalDocumentId": {
+      "type": "string"
+    },
+    "contactId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentIssuingCountryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentIssuingPlace": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalDocumentIssueDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

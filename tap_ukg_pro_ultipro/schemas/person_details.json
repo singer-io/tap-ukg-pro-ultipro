@@ -1,1 +1,596 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "additionalName1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "additionalName2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressIsOnTaxBoundary": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "addressLatitude": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "cobraExport": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraIsActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "cobraReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraStatusDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "communityBroadcastSmsCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "consentElectronicW2": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "dateDeceased": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfCobraEvent": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "datetimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "datetimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emailAddress": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCity": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressState": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressZipCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateOfBirth": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "gender": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ssn": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLongitude": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "consentElectronicw2pr": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "dateOfCobraExport": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateOfCobraLetter": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateOfI9Expiration": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "disabilityType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ethnicDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "formerName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthBloodType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthEyes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHair": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHeightFeet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthHeightInches": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthLastDonateDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthWeight": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "i9AlienNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocA": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocB": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocC": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9Verified": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "i9VisaType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9WorkAuth": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isDisabled": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isMultiPayGroup": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isSmoker": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "militaryService": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "militaryBranchServed": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryEra": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsDisabledVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsOthEligVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsOthEligVetBasis": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsActiveWartimeVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameFormer": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "previousSSN": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originLocation": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "w2IsDeceased": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "cobraNotes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressSms": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militarySeparationDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhoneIsPrivate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "smsApprovals": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "smsPayNotification": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "i9VisaExpirationDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsMedalVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastNameNotSameAsSSCard": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "chkCashingInstCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationality3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "personId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "preferredName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "namePrefixCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameSuffixCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "emailAddressAlternate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "homePhoneCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressCounty": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ethnicIDCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "maritalStatusCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalIdCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ssnIsSuppressed": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "integrationUserKey": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

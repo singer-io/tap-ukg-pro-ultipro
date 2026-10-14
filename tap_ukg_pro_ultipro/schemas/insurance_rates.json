@@ -1,1 +1,112 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "deductionCode": {
+      "type": "string"
+    },
+    "minimumAge": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "maximumAge": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeRateNonSmokerFemale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeRateNonSmokerMale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeRateSmokerFemale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeRateSmokerMale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "effectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employerRateNonSmokerFemale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRateNonSmokerMale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRateSmokerFemale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRateSmokerMale": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "payFrequency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "stopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeRateNonSmokerNotSpecified": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeRateSmokerNotSpecified": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRateNonSmokerNotSpecified": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRateSmokerNotSpecified": {
+      "type": [
+        "null",
+        "number"
+      ]
+    }
+  }
+}

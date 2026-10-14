@@ -1,1 +1,42 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "positionCode": {
+      "type": "string"
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "effectiveStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "effectiveStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "reportsToPositionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

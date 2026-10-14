@@ -1,1 +1,46 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "deductionCode": {
+      "type": "string"
+    },
+    "benefitOption": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "effectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "payFrequency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "rateStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}
