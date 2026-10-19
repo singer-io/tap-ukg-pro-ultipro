@@ -1,1 +1,211 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "alternateTitle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "effectiveStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "effectiveStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "fundID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "glSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isApproved": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isEligibleForBenefits": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isProrated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "jobcode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "locationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevelCode1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevelCode2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevelCode3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevelCode4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "overstaffingAllowed": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "payGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "positionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "projectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shiftGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "statusCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "statusAsOfDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField01": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField02": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField03": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "userDefinedField04": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "isNull": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Value": {
+          "type": [
+            "null",
+            "number"
+          ]
+        }
+      }
+    },
+    "integrationRecordId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

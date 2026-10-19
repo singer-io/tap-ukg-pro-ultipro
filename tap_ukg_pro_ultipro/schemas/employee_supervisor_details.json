@@ -1,1 +1,92 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeID": {
+      "type": "string"
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorEmployeeID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorFirstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorLastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorEmployeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorCompanyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorCompanyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorStatusCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorJobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorPositionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorEmail": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorWorkPhone": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supervisorPersonId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

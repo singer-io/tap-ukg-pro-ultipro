@@ -1,1 +1,302 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeID": {
+      "type": "string"
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "annualSalary": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "weeklyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "payPeriodPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "currencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "otherRate1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate3": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate4": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "payGroupDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "piecePayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "primaryJobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobSalaryGrade": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobChangeReasonCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateInJob": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateLastPaid": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateLastWorked": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfLastSalaryReview": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfNextSalayrReview": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "isAutoAllocated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isAutoPaid": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isSeasonalWorker": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isHighlyCompensated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isMultipleJob": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "payGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payPeriod": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payScaleCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourlyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullTimeOrPartTimeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "scheduledFullTimeEquivalency": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "scheduledPeriodWorkHours": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "scheduledAnnualWorkHours": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "weeklyHours": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "primaryShiftCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryShiftGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "avgPayRateCurPer": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "bonusTotalHrs": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "bonusTotalOtHrs": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "datePaidThru": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "emplStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "totalAnnSalary": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "distributionCenterCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "numberOfPayments": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "performanceReviewRating": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "performanceReviewType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

@@ -12,6 +12,8 @@ from singer import (
     metadata
 )
 
+from tap_ukg_pro_ultipro.exceptions import UKGProForbiddenError
+
 LOGGER = get_logger()
 
 
@@ -36,6 +38,7 @@ class BaseStream(ABC):
     data_key = ""
     parent_bookmark_key = ""
     http_method = "GET"
+    access_check_params = {"per_page": 1, "page": 1}
 
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
@@ -73,6 +76,31 @@ class BaseStream(ABC):
 
     def is_selected(self):
         return metadata.get(self.metadata, (), "selected")
+
+    def check_access(self) -> bool:
+        """
+        Verify that the credentials can read this stream.
+
+        Sends a single one-record GET to the stream's own endpoint. Returns True when
+        the request succeeds and False only when the API answers HTTP 403, meaning the
+        credentials lack permission. Every other error is re-raised so that a transient
+        or unexpected failure never silently drops a stream from the catalog.
+        """
+        try:
+            self.client.make_request(
+                self.http_method,
+                self.get_url_endpoint(),
+                dict(self.access_check_params),
+                self.headers,
+            )
+            return True
+        except UKGProForbiddenError as exc:
+            LOGGER.warning(
+                "Unauthorized Stream: %s, excluding from catalog. HTTP-Error-Message:'%s'",
+                self.tap_stream_id,
+                str(exc),
+            )
+            return False
 
     @abstractmethod
     def sync(

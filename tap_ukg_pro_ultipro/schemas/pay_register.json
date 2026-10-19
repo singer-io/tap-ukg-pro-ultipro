@@ -1,1 +1,337 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "annualSalary": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "autoAllocate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "bonusTotalHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "bonusTotalOTHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "checkAddMode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "checkAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payPeriodFrequency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "directDepositAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "documentNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "earningTaxReportingType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "checkId": {
+      "type": "string"
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "isRegularPayForCumulative": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isVoided": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isVoidingRecord": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastRegularPayDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "locationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameFirst": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameLast": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameMiddle": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nameSuffix": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "netAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "organizationLevel1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "originalPayPeriodFrequency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodControl": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodEndDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "periodStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "project": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reconciled": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reconcileDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "sequenceNumber": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "shift": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "ssn": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "stateSui": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "suiGross": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "taxCalculationGroupID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalculationSequence": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "totalDeductionAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "totalEarningsAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "totalHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "totalHoursWorked": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "totalShiftAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "totalTaxAmount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "voidDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

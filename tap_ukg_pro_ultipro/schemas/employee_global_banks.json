@@ -1,1 +1,210 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "bankId": {
+      "type": "string"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fundingMethod": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fundingMethodDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addressLine3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "city": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "state": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "postalCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "country": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankBranch": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankCountryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "beneficiaryName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankAccountType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankAccountTypeDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankAccountNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "iban": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "swiftCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequirement1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequirement2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequirement3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateModified": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "bankRequestCode1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequestLabel1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequestCode2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequestLabel2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequestCode3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "bankRequestLabel3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeCountry": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

@@ -1,1 +1,473 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "allowPartialDeduction": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "batchID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitOption": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitProvider": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "childSupportType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "checkId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currentArrearsAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customAmount1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customAmount2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionCalculationBasisAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "deductionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionForBonusOnly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionPlanType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deferredCompensationCap": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "deferredCompensationRegularCap": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "dependentRecordId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeCalculationRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeCalculaitonRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeCurrentAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeDeductionLastPaid": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeGoalAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeGoalRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeGoalToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeOriginalAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employerAnnualCapCalculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employerCalculationRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerCalculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employerCurrentAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerPeriodCapCalculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "excludeFromWorkersCompensation": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "generalLedgerExpenseAccount": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "generalLedgerPayAccount": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "is401k": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is403b": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is408k": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is408p": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is457": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is457b": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is457F": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "is501C": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isD125": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isDeductionOffSet": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isDeferredCompensation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isDependentCare": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isHousing": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isNonQualifiedPlan": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isPublicEmployeeRetirement": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isProrated": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isSection125": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isVoided": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isVoidingRecord": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "payeeID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodControl": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "recordId": {
+      "type": "integer"
+    },
+    "taxCalculationGroupId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timeclockCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "vendor": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "wageGarnishmentAdditionalArrearageAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentAllocateAsArrears": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "wageGarnishmentAmountExempt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentAmountExemptFromLevy": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentAmountExemtFromGarn": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentAmountSubjectToCS": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentAmountSubjectToGarnishment": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentDeductionTaxCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "wageGarnishmentDisposableIncome": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentMinimumWageFactor": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "wageGarnishmentWageCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "yearToDateDeferredCompensationCombinedAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    }
+  }
+}

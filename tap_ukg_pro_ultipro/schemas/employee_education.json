@@ -1,1 +1,82 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "school": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "educationLevel": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "educationMajor": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "educationMinor": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "gpa": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "beginDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "endDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "isGraduate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isHighestLevel": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "country": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

@@ -1,1 +1,134 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDeductionId": {
+      "type": "string"
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDeductionName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payDeductionDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodStartId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodEndId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodStartName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodEndName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "startDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "endDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "project": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "task": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "recurring": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "amount": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "modifiedDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "country": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "paymentOrDeductionIndicator": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

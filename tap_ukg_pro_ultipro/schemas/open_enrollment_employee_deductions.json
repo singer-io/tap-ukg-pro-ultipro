@@ -1,1 +1,265 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "benefitAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitAmountRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitOption": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "addCoverage": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "changeReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "benefitStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStatusDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "benefitStopDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "customAmount1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customAmount2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "changeDatetime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "createDatetime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionCode": {
+      "type": "string"
+    },
+    "deductionType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeCalculationRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeEligibilityDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeGoalAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeGoalToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "employeeMemberOrCaseNo": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "evidenceofInsurabilityDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "needEvidenceOfInsurability": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "evidenceofInsurabilityDesiredAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeEligibilityDesiredCalculationRateOrPercent": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "employerAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerCalculationRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerCalculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employerYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "isDeductionOffset": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "medicalIndicator": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "deductionNotes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryCarePhysician": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryCarePhysicianId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "benefitWaiveReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isBenefitWaived": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "oeDrop": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

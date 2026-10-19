@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from tap_ukg_pro_ultipro.sync import write_schema, sync, update_currently_syncing
+from tap_ukg_pro_ultipro.streams import STREAMS
 
 
 class TestSync(unittest.TestCase):
@@ -8,7 +9,7 @@ class TestSync(unittest.TestCase):
     def test_write_schema_only_parent_selected(self):
         mock_stream = MagicMock()
         mock_stream.is_selected.return_value = True
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
+        mock_stream.children = ["roles", "earnings"]
         mock_stream.child_to_sync = []
 
         client = MagicMock()
@@ -23,14 +24,14 @@ class TestSync(unittest.TestCase):
     def test_write_schema_parent_child_both_selected(self):
         mock_stream = MagicMock()
         mock_stream.is_selected.return_value = True
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
+        mock_stream.children = ["roles", "earnings"]
         mock_stream.child_to_sync = []
 
         client = MagicMock()
         catalog = MagicMock()
         catalog.get_stream.return_value = MagicMock()
 
-        write_schema(mock_stream, client, ["invoice_payments"], catalog)
+        write_schema(mock_stream, client, ["roles"], catalog)
 
         mock_stream.write_schema.assert_called_once()
         self.assertEqual(len(mock_stream.child_to_sync), 1)
@@ -38,14 +39,14 @@ class TestSync(unittest.TestCase):
     def test_write_schema_child_selected(self):
         mock_stream = MagicMock()
         mock_stream.is_selected.return_value = False
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
+        mock_stream.children = ["roles", "earnings"]
         mock_stream.child_to_sync = []
 
         client = MagicMock()
         catalog = MagicMock()
         catalog.get_stream.return_value = MagicMock()
 
-        write_schema(mock_stream, client, ["invoice_payments", "invoice_line_items"], catalog)
+        write_schema(mock_stream, client, ["roles", "earnings"], catalog)
 
         self.assertEqual(mock_stream.write_schema.call_count, 0)
         self.assertEqual(len(mock_stream.child_to_sync), 2)
@@ -57,13 +58,13 @@ class TestSync(unittest.TestCase):
     @patch("tap_ukg_pro_ultipro.streams.abstracts.IncrementalStream.sync")
     def test_sync_stream1_called(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
         mock_catalog = MagicMock()
-        invoice_stream = MagicMock()
-        invoice_stream.stream = "invoices"
-        expense_stream = MagicMock()
-        expense_stream.stream = "expenses"
+        first_stream = MagicMock()
+        first_stream.stream = "positions"
+        second_stream = MagicMock()
+        second_stream.stream = "person_details"
         mock_catalog.get_selected_streams.return_value = [
-            invoice_stream,
-            expense_stream
+            first_stream,
+            second_stream
         ]
         state = {}
 
@@ -81,20 +82,22 @@ class TestSync(unittest.TestCase):
     @patch("tap_ukg_pro_ultipro.streams.abstracts.IncrementalStream.sync")
     def test_sync_child_selected(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
         mock_catalog = MagicMock()
-        invoice_messages_stream = MagicMock()
-        invoice_messages_stream.stream = "invoice_messages"
-        invoice_payments_stream = MagicMock()
-        invoice_payments_stream.stream = "invoice_payments"
+        parent_stream = MagicMock()
+        parent_stream.stream = "positions"
+        child_stream = MagicMock()
+        child_stream.stream = "person_details"
         mock_catalog.get_selected_streams.return_value = [
-            invoice_messages_stream,
-            invoice_payments_stream
+            parent_stream,
+            child_stream
         ]
         state = {}
 
         client = MagicMock()
         config = {}
 
-        sync(client, config, mock_catalog, state)
+        # Mark one stream as the child of the other; only the parent is synced directly.
+        with patch.object(STREAMS["person_details"], "parent", "positions"):
+            sync(client, config, mock_catalog, state)
 
         self.assertEqual(mock_sync.call_count, 1)
 

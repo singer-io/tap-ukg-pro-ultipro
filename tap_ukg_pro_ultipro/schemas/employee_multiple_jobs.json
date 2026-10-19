@@ -1,1 +1,78 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "annualPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateInJob": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "isPrimaryJob": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "jobCode": {
+      "type": "string"
+    },
+    "jobIsInActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "otherRate1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate3": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate4": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "piecePayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    }
+  }
+}

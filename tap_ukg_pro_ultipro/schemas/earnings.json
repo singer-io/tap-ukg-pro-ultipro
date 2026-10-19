@@ -1,1 +1,326 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "earningCode": {
+      "type": "string"
+    },
+    "longDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "amount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "blockFederalIncomeTax": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "blockLocalIncomeTax": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "blockStateIncomeTax": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "calculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "displayInPayDataEntry": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "excelInTotalHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "flatHours": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "includeInAccruals": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "includeInAllocations": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeFlsaAveragePayRate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInBenefitHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInDeferredCompensation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInDeferredCompensationHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInEarningAccumulation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInHoursAccumulation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInManualCheck": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning1": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning2": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning3": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning4": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning5": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInMiscellaneousEarning6": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInPensionAccumulation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInRetroPay": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInShiftDiffrential": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isProductiveTime": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isSupplimentalWages": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriod1": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriod2": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriod3": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriod4": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "monthlyPayPeriod5": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reduceRegularDollars": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "reduceRegularHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "reportCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "scheduleSupplemental": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "stubDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timeClockCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "useDeductionOffset": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInRegisteredPensionPlan": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInRegisteredRetirementSavingsPlan": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInUnionDues": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInUnionDuesHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "taxCalculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "exemptFromEarnedIncomeHours": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "includeInHealthCareHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "verificationTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "verificationTypeDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

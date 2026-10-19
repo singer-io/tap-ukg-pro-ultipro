@@ -1,1 +1,189 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "caste": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "casteDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "countryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "effectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "ethnicIdCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "healthCareId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isAboriginal": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "nationalIdExpirationDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "oldNationalId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "oldNationalIdExpirationDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField3": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "userDefinedField4": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "userDefinedField5": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField6": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField7": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField8": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField9": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userDefinedField10": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "userDefinedField11": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "userDefinedField12": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField13": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userDefinedField14": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currencyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isMilitaryReserve": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isMilitaryServiceCompleted": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "medicalRegionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

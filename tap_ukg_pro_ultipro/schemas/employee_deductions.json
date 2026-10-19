@@ -1,1 +1,430 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeID": {
+      "type": "string"
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitOption": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "arrearsAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitAmountCalcRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitAmountRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitStartDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStatusDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStopDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "customAmount1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customAmount2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "customDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateSuspendedFrom": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateSuspendedTo": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "datetimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "datetimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "declinedByCarrier": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "declinedByCarrierDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "declinedByCarrierReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionCode": {
+      "type": "string"
+    },
+    "effectiveRecordID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "contactID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "memberOrCaseNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeCalcRateOrPct": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeCalcRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeCauseNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeDedLastPaid": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeEligibilityDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeFiscalYTDAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeGoalAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeGoalToDateAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeLastAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeMonthToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeQuarterToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeeYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "evidenceOfInsurabilityDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "evidenceOfInsurabilityDesiredAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "evidenceOfInsurabilityDesiredCalcRateOrPct": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerCalcRateOrPct": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerCalcRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employerFiscalYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerLastAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerMonthToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerQuarterToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employerYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "interestAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "isDeductionOffset": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "medicalIndicator": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "needEvidenceOfInsurability": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryCarePhysician": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryCarePhysicianId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "priorEmployeeAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "priorEmployeeGoalAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "priorEmployeeYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "priorEmployerYearToDateAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "deductionStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "systemID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "waiveReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isHomeCompany": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isWaived": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInAdditionalCheck": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInManualCheck": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "employeePerCapAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeePerCapPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "employeePerCapCalcRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}
