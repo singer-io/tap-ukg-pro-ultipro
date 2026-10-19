@@ -66,7 +66,7 @@ This tap:
 ## Streams
 
 **[company_details](https://developer.ukg.com/hcm/reference/companydetails_getcompanydetails)**
-- Primary keys: ['companyID']
+- Primary keys: ['companyId']
 - Replication strategy: FULL_TABLE
 
 **[earnings](https://developer.ukg.com/hcm/reference/get_configuration-v1-earnings)**
