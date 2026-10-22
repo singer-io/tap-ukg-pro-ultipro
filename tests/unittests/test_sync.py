@@ -59,9 +59,9 @@ class TestSync(unittest.TestCase):
     def test_sync_stream1_called(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
         mock_catalog = MagicMock()
         first_stream = MagicMock()
-        first_stream.stream = "positions"
+        first_stream.tap_stream_id = "positions"
         second_stream = MagicMock()
-        second_stream.stream = "person_details"
+        second_stream.tap_stream_id = "person_details"
         mock_catalog.get_selected_streams.return_value = [
             first_stream,
             second_stream
@@ -83,9 +83,9 @@ class TestSync(unittest.TestCase):
     def test_sync_child_selected(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
         mock_catalog = MagicMock()
         parent_stream = MagicMock()
-        parent_stream.stream = "positions"
+        parent_stream.tap_stream_id = "positions"
         child_stream = MagicMock()
-        child_stream.stream = "person_details"
+        child_stream.tap_stream_id = "person_details"
         mock_catalog.get_selected_streams.return_value = [
             parent_stream,
             child_stream
@@ -105,15 +105,22 @@ class TestSync(unittest.TestCase):
     @patch("singer.set_currently_syncing")
     @patch("singer.write_state")
     def test_remove_currently_syncing(self, mock_write_state, mock_set_currently_syncing, mock_get_currently_syncing):
-        mock_get_currently_syncing.return_value = "some_stream"
         state = {"currently_syncing": "some_stream"}
 
         update_currently_syncing(state, None)
 
-        mock_get_currently_syncing.assert_called_once_with(state)
         mock_set_currently_syncing.assert_not_called()
         mock_write_state.assert_called_once_with(state)
         self.assertNotIn("currently_syncing", state)
+
+    @patch("singer.write_state")
+    def test_remove_currently_syncing_when_not_set(self, mock_write_state):
+        state = {"bookmarks": {}}
+
+        update_currently_syncing(state, None)
+
+        self.assertEqual(state, {"bookmarks": {}})
+        mock_write_state.assert_called_once_with(state)
 
     @patch("singer.get_currently_syncing")
     @patch("singer.set_currently_syncing")
