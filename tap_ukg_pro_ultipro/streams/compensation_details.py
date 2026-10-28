@@ -6,3 +6,5 @@ class CompensationDetails(FullTableStream):
     key_properties = ["companyID", "employeeID"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/compensation-details"
+    # Observed sync volume is ~1,537 records.
+    page_size = 1000

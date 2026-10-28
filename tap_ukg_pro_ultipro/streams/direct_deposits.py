@@ -6,3 +6,5 @@ class DirectDeposits(FullTableStream):
     key_properties = ["accountRecordId"]
     replication_method = "FULL_TABLE"
     path = "/payroll/v1/direct-deposit"
+    # Observed sync volume is ~1,776 records.
+    page_size = 1000
