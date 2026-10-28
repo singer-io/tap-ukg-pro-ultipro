@@ -6,3 +6,5 @@ class EmployeeUserDefinedFields(FullTableStream):
     key_properties = ["employeeId"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/user-defined-fields"
+    # Observed sync volume is ~1,490 records.
+    page_size = 1000

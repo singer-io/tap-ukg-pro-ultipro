@@ -12,7 +12,8 @@ class ukg_pro_ultiproStartDateTest(StartDateTest, ukg_pro_ultiproBaseTest):
         return "tap_tester_ukg_pro_ultipro_start_date_test"
 
     def streams_to_test(self):
-        streams_to_exclude = {}
+        # Exclude large-data-volume streams to avoid excessively slow test runs.
+        streams_to_exclude = self.LARGE_DATA_STREAMS
         return self.expected_stream_names().difference(streams_to_exclude)
 
     @property

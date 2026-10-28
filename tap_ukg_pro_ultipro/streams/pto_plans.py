@@ -6,3 +6,5 @@ class PtoPlans(FullTableStream):
     key_properties = ["employeeId", "companyId", "ptoPlan"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/pto-plans"
+    # Observed sync volume is ~2,279 records.
+    page_size = 1000

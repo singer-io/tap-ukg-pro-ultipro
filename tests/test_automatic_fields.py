@@ -13,6 +13,7 @@ class ukg_pro_ultiproAutomaticFields(MinimumSelectionTest, ukg_pro_ultiproBaseTe
         return "tap_tester_ukg_pro_ultipro_automatic_fields_test"
 
     def streams_to_test(self):
-        streams_to_exclude = {}
+        # Exclude large-data-volume streams to avoid excessively slow test runs.
+        streams_to_exclude = self.LARGE_DATA_STREAMS
         return self.expected_stream_names().difference(streams_to_exclude)
 

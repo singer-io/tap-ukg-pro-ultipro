@@ -6,91 +6,21 @@ from tap_tester import menagerie
 
 class ukg_pro_ultiproDiscoveryTest(DiscoveryTest, ukg_pro_ultiproBaseTest):
     """Test tap discovery mode and metadata conforms to standards."""
-    orphan_streams = {
-        configuration_company_details,
-        personnel_dep_deductions,
-        payroll_earnings_history_base_elements,
-        personnel_emp_deductions_benefit_option_change_date,
-        personnel_employee_global_localization_elements,
-        personnel_employee_changes,
-        personnel_employee_cobra_details,
-        personnel_employee_contract_details,
-        personnel_employee_education,
-        personnel_employee_extended_elements,
-        personnel_employee_global_banks,
-        personnel_employee_global_banks_employeeglobalbankv2_getv2,
-        personnel_employee_job_history_details,
-        personnel_employee_multi_phone_numbers,
-        personnel_employee_pay_deduction_elements,
-        personnel_employee_supervisor_details,
-        personnel_empl_multiple_positions,
-        payroll_general_ledger,
-        configuration_code_tables,
-        configuration_earnings,
-        configuration_option_rate,
-        configuration_organization_reporting_category,
-        configuration_positions,
-        configuration_shift_codes,
-        configuration_tax_groups,
-        payroll_direct_deposit,
-        personnel_compensation_details,
-        personnel_contacts,
-        personnel_deduction_history_effective_change_dates,
-        personnel_emp_deductions,
-        personnel_empl_multiple_jobs,
-        personnel_employee_demographic_details,
-        personnel_employment_details,
-        personnel_integration_kronos_business_structure_status,
-        personnel_integration_kronos_employee_profiles,
-        personnel_open_enrollment_dep_deductions,
-        personnel_person_details,
-        personnel_pto_plans,
-        personnel_user_defined_fields,
-        personnel_user_preferences,
-        personnel_user_profile_details,
-        configuration_code_tables_allergy,
-        configuration_code_tables_awardtype,
-        configuration_code_tables_careerprovider,
-        configuration_code_tables_childsupporttype,
-        configuration_code_tables_cobrastatus,
-        configuration_code_tables_companyproperty,
-        configuration_code_tables_coursecategory,
-        configuration_code_tables_coursedeliverymet,
-        configuration_code_tables_coursesubcategory,
-        configuration_code_tables_disability,
-        configuration_code_tables_employeetype,
-        configuration_code_tables_jobfamily,
-        configuration_jobs,
-        configuration_jobs_getjobslist_v1,
-        configuration_code_tables_licensetype,
-        configuration_code_tables_loantype,
-        configuration_locations,
-        configuration_code_tables_maritalstatus,
-        configuration_code_tables_militarybranches,
-        configuration_code_tables_militaryera,
-        configuration_code_tables_nameprefix,
-        configuration_org_levels,
-        configuration_code_tables_otherphonetypes,
-        configuration_code_tables_project,
-        configuration_code_tables_school,
-        configuration_code_tables_skillproficiencylevel,
-        configuration_code_tables_skills,
-        configuration_code_tables_termtype,
-        configuration_code_tables_waivereason,
-        configuration_insurance_rate,
-        personnel_international_employees,
-        configuration_jobgroup,
-        personnel_integration_kronos_employee_status,
-        personnel_national_documents,
-        personnel_open_enrollment_emp_deductions,
-        payroll_paygroup_payperiods,
-        payroll_pay_register,
-        payroll_payroll_deductions_history,
-        personnel_position_report,
-        services_payroll_payroll_pending_items_deductions,
-        services_payroll_payroll_pending_items_earnings,
-        personnel_employee_employment_details,
-    }
+
+    @property
+    def orphan_streams(self):
+        """
+        No stream in this tap currently defines a `parent` (see
+        tap_ukg_pro_ultipro/streams/abstracts.py BaseStream.parent default of
+        ""), i.e. every stream is top-level with no parent/child
+        relationship. All streams are therefore legitimately "orphans" and
+        are not expected to carry PARENT_TAP_STREAM_ID metadata.
+
+        This is computed dynamically (rather than a hardcoded, easy-to-drift
+        literal list) so it always reflects the current full set of expected
+        stream names.
+        """
+        return self.expected_stream_names()
 
     @staticmethod
     def name():

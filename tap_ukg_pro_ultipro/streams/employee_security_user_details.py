@@ -6,3 +6,5 @@ class EmployeeSecurityUserDetails(FullTableStream):
     key_properties = ["userID"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/employee-security-user-details"
+    # Observed sync volume is ~1,471 records.
+    page_size = 1000

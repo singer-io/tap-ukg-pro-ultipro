@@ -6,3 +6,5 @@ class EmployeeSupervisorDetails(FullTableStream):
     key_properties = ["employeeID"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/employee-supervisor-details"
+    # Observed sync volume is ~1,490 records.
+    page_size = 1000
