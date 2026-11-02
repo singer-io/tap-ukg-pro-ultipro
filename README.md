@@ -49,9 +49,6 @@ This tap:
     - [employee_global_banks](https://developer.ukg.com/hcm/reference/employeeglobalbank_get)
     - [employee_global_localization_elements](https://developer.ukg.com/hcm/reference/empgloballocalizationelement_get)
     - [employee_pay_deduction_elements](https://developer.ukg.com/hcm/reference/employeepaydeductionelement_get)
-    - [international_employees](https://developer.ukg.com/hcm/reference/internationalemployee_get)
-    - [open_enrollment_employee_deductions](https://developer.ukg.com/hcm/reference/openenrollmentemployeedeductions_getauditdetails)
-    - [employee_deductions](https://developer.ukg.com/hcm/reference/get_personnel-v1-emp-deductions)
     - [dependent_deductions](https://developer.ukg.com/hcm/reference/dependentdeductions_get)
     - [person_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-person-details)
     - [pto_plans](https://developer.ukg.com/hcm/reference/get_personnel-v1-pto-plans)
@@ -146,7 +143,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[pay_group_payperiods](https://developer.ukg.com/hcm/reference/paygrouppayperiod_getpaygrouppayperiod)**
-- Primary keys: []
+- Primary keys: ['payGroup', 'payPeriodId']
 - Replication strategy: INCREMENTAL
 
 **[payroll_deductions_history](https://developer.ukg.com/hcm/reference/payrolldeductionshistory_get)**
@@ -233,18 +230,6 @@ This tap:
 - Data Key = data
 - Primary keys: ['employeeId', 'payDeductionId']
 - Replication strategy: INCREMENTAL
-
-**[international_employees](https://developer.ukg.com/hcm/reference/internationalemployee_get)**
-- Primary keys: []
-- Replication strategy: FULL_TABLE
-
-**[open_enrollment_employee_deductions](https://developer.ukg.com/hcm/reference/openenrollmentemployeedeductions_getauditdetails)**
-- Primary keys: ['employeeId', 'deductionCode']
-- Replication strategy: INCREMENTAL
-
-**[employee_deductions](https://developer.ukg.com/hcm/reference/get_personnel-v1-emp-deductions)**
-- Primary keys: ['employeeId', 'dedCode']
-- Replication strategy: FULL_TABLE
 
 **[dependent_deductions](https://developer.ukg.com/hcm/reference/dependentdeductions_get)**
 - Primary keys: []

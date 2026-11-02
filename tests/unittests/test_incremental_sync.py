@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 from tap_ukg_pro_ultipro.streams.abstracts import IncrementalStream
 
 
-class ConcreteParentBaseStream(IncrementalStream):
+class ConcreteIncrementalStream(IncrementalStream):
     @property
     def key_properties(self):
         return ["id"]
@@ -29,9 +29,8 @@ class TestSync(unittest.TestCase):
         mock_catalog.metadata = "mock_metadata"
         mock_to_map.return_value = {"metadata_key": "metadata_value"}
 
-        self.stream = ConcreteParentBaseStream(catalog=mock_catalog)
+        self.stream = ConcreteIncrementalStream(catalog=mock_catalog)
         self.stream.client = MagicMock()
-        self.stream.child_to_sync = []
 
     @patch("tap_ukg_pro_ultipro.streams.abstracts.get_bookmark", return_value=100)
     def test_write_bookmark_with_state(self, mock_get_bookmark):

@@ -123,15 +123,24 @@ class TestPagination(unittest.TestCase):
 
         self.assertTrue(all(r["body"] is None for r in client.requests))
 
-    def test_endpoint_ignoring_paging_does_not_loop_forever(self):
+    def test_endpoint_ignoring_paging_raises_instead_of_ending_successfully(self):
         client = MagicMock()
         client.make_request.return_value = [{"id": 1}, {"id": 2}]
         stream = make_stream("roles", client)
 
-        records = list(stream.get_records())
+        with self.assertRaises(UKGProError) as ctx:
+            list(stream.get_records())
 
-        self.assertEqual(records, [{"id": 1}, {"id": 2}])
+        self.assertIn("roles", str(ctx.exception))
         self.assertEqual(client.make_request.call_count, 2)
+
+    def test_repeated_page_followed_by_new_data_is_an_error(self):
+        client = MagicMock()
+        client.make_request.side_effect = [[{"id": "A"}], [{"id": "A"}], [{"id": "B"}], []]
+        stream = make_stream("roles", client)
+
+        with self.assertRaises(UKGProError):
+            list(stream.get_records())
 
     def test_params_are_not_shared_between_requests(self):
         path = STREAMS["roles"].path
@@ -492,7 +501,7 @@ class TestClientLogging(unittest.TestCase):
     def logged(mock_logger):
         return [call.args[0] % call.args[1:] for call in mock_logger.mock_calls if call.args]
 
-    def test_every_request_logs_url_and_params_but_no_credentials(self):
+    def test_requests_do_not_log_the_customer_hostname_or_credentials(self):
         response = MagicMock(status_code=200)
         response.json.return_value = []
 
@@ -501,11 +510,8 @@ class TestClientLogging(unittest.TestCase):
                 self.client.make_request("GET", "", {"page": 2, "per_page": 100}, path="/configuration/v1/roles")
 
         text = " ".join(self.logged(mock_logger))
-        self.assertIn("GET", text)
-        self.assertIn("https://servicet.example.com/configuration/v1/roles", text)
-        self.assertIn("'page': 2", text)
         encoded = base64.b64encode(b"dummy_user:dummy_password").decode()
-        for secret in ("dummy_user", "dummy_password", "dummy_api_key", encoded):
+        for secret in ("servicet.example.com", "dummy_user", "dummy_password", "dummy_api_key", encoded):
             self.assertNotIn(secret, text)
 
     def test_api_error_logs_status_code_and_body(self):

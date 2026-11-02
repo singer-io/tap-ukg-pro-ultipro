@@ -191,9 +191,9 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "pay_group_payperiods": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "payGroup", "payPeriodId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -334,27 +334,6 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.PRIMARY_KEYS: { "employeeId", "payDeductionId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
                 cls.REPLICATION_KEYS: { "modifiedDate" },
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
-            "international_employees": {
-                cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
-            "open_enrollment_employee_deductions": {
-                cls.PRIMARY_KEYS: { "employeeId", "deductionCode" },
-                cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "createDatetime" },
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
-            "employee_deductions": {
-                cls.PRIMARY_KEYS: { "employeeID", "deductionCode" },
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },

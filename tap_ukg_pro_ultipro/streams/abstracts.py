@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-import json
 from datetime import datetime
 from typing import Any, Dict, Optional, Tuple, List, Iterator
 from singer import (
@@ -65,10 +64,7 @@ class BaseStream(ABC):
     page_size_param = "per_page"
     bookmark_query_param = None
     headers = {}
-    children = []
-    parent = ""
     data_key = ""
-    parent_bookmark_key = ""
     http_method = "GET"
     access_check_params = {"per_page": 1, "page": 1}
 
@@ -77,9 +73,7 @@ class BaseStream(ABC):
         self.catalog = catalog
         self.schema = catalog.schema.to_dict()
         self.metadata = metadata.to_map(catalog.metadata)
-        self.child_to_sync = []
         self.params = {}
-        self.data_payload = {}
 
     @property
     @abstractmethod
@@ -139,7 +133,6 @@ class BaseStream(ABC):
         self,
         state: Dict,
         transformer: Transformer,
-        parent_obj: Dict = None,
     ) -> int:
         """
         Performs a replication sync for the stream.
@@ -147,7 +140,6 @@ class BaseStream(ABC):
         Args:
          - state (dict): represents the state file for the tap.
          - transformer (object): A Object of the singer.transformer class.
-         - parent_obj (dict): The parent object for the stream.
 
         Returns:
          - int: The number of records written for the stream.
@@ -190,19 +182,18 @@ class BaseStream(ABC):
                 self.url_endpoint,
                 dict(self.params),
                 self.headers,
-                body=json.dumps(self.data_payload) if self.data_payload else None,
                 path=self.path
             )
             records = self.extract_records(response)
             if not records:
                 has_more_pages = False
             elif records == previous_page:
-                LOGGER.warning(
-                    "Stream %s returned the same page twice; stopping pagination at page %s.",
-                    self.tap_stream_id,
-                    page,
+                # Identical non-empty pages do not prove the dataset is complete, so fail
+                # instead of ending successfully and advancing the bookmark.
+                raise UKGProError(
+                    "Stream '{}' returned the same nonempty page twice at page {}; "
+                    "pagination did not advance.".format(self.tap_stream_id, page)
                 )
-                has_more_pages = False
             else:
                 yield from records
                 previous_page = records
@@ -252,19 +243,13 @@ class BaseStream(ABC):
         """
         self.params.update(kwargs)
 
-    def update_data_payload(self, **kwargs) -> None:
-        """
-        Update JSON body for the stream
-        """
-        self.data_payload.update(kwargs)
-
-    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
+    def modify_object(self, record: Dict) -> Dict:
         """
         Modify the record before writing to the stream
         """
         return record
 
-    def get_url_endpoint(self, parent_obj: Dict = None) -> str:
+    def get_url_endpoint(self) -> str:
         """
         Get the URL endpoint for the stream
         """
@@ -328,7 +313,6 @@ class IncrementalStream(BaseStream):
         self,
         state: Dict,
         transformer: Transformer,
-        parent_obj: Dict = None,
     ) -> int:
         """
         Implementation for `type: Incremental` stream.
@@ -352,14 +336,12 @@ class IncrementalStream(BaseStream):
 
         if self.bookmark_query_param:
             self.update_params(**{self.bookmark_query_param: bookmark_date})
-        if parent_obj is not None:
-            self.update_data_payload(parent_obj=parent_obj)
-        self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.url_endpoint = self.get_url_endpoint()
 
         skipped_records = 0
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
-                record = self.modify_object(record, parent_obj)
+                record = self.modify_object(record)
                 transformed_record = self.transform_record(transformer, record)
 
                 record_dttm = self.get_record_bookmark(transformed_record)
@@ -374,9 +356,6 @@ class IncrementalStream(BaseStream):
                     if self.is_selected():
                         write_record(self.tap_stream_id, transformed_record)
                         counter.increment()
-
-                    for child in self.child_to_sync:
-                        child.sync(state=state, transformer=transformer, parent_obj=record)
 
             if skipped_records:
                 LOGGER.info(
@@ -394,7 +373,7 @@ class IncrementalStream(BaseStream):
 
 
 class FullTableStream(BaseStream):
-    """Base Class for Incremental Stream."""
+    """Base Class for Full Table Stream."""
 
     replication_keys = []
 
@@ -402,81 +381,15 @@ class FullTableStream(BaseStream):
         self,
         state: Dict,
         transformer: Transformer,
-        parent_obj: Dict = None,
     ) -> int:
         """Abstract implementation for `type: Fulltable` stream."""
-        if parent_obj is not None:
-            self.update_data_payload(parent_obj=parent_obj)
-        self.url_endpoint = self.get_url_endpoint(parent_obj)
+        self.url_endpoint = self.get_url_endpoint()
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
-                record = self.modify_object(record, parent_obj)
+                record = self.modify_object(record)
                 transformed_record = self.transform_record(transformer, record)
                 if self.is_selected():
                     write_record(self.tap_stream_id, transformed_record)
                     counter.increment()
 
-                for child in self.child_to_sync:
-                    child.sync(state=state, transformer=transformer, parent_obj=record)
-
             return counter.value
-
-
-class ParentBaseStream(IncrementalStream):
-    """Base Class for Parent Stream."""
-
-    def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
-        """A wrapper for singer.get_bookmark to deal with compatibility for
-        bookmark values or start values."""
-
-        min_parent_bookmark = (
-            super().get_bookmark(state, stream) if self.is_selected() else None
-        )
-        for child in self.child_to_sync:
-            bookmark_key = f"{self.tap_stream_id}_{self.replication_keys[0]}"
-            child_bookmark = super().get_bookmark(
-                state, child.tap_stream_id, key=bookmark_key
-            )
-            min_parent_bookmark = (
-                min(min_parent_bookmark, child_bookmark)
-                if min_parent_bookmark
-                else child_bookmark
-            )
-
-        return min_parent_bookmark
-
-    def write_bookmark(
-        self, state: Dict, stream: str, key: Any = None, value: Any = None
-    ) -> Dict:
-        """A wrapper for singer.get_bookmark to deal with compatibility for
-        bookmark values or start values."""
-        if self.is_selected():
-            super().write_bookmark(state, stream, value=value)
-
-        for child in self.child_to_sync:
-            bookmark_key = f"{self.tap_stream_id}_{self.replication_keys[0]}"
-            super().write_bookmark(
-                state, child.tap_stream_id, key=bookmark_key, value=value
-            )
-
-        return state
-
-
-class ChildBaseStream(IncrementalStream):
-    """Base Class for Child Stream."""
-
-    def __init__(self, client=None, catalog=None, config=None) -> None:
-        """Initialize ChildBaseStream."""
-        super().__init__(client, catalog, config)
-        self.bookmark_value = None
-
-    def get_url_endpoint(self, parent_obj=None):
-        """Prepare URL endpoint for child streams."""
-        return self.client.build_url(self.path.format(parent_obj['id']))
-
-    def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
-        """Singleton bookmark value for child streams."""
-        if not self.bookmark_value:
-            self.bookmark_value = super().get_bookmark(state, stream)
-
-        return self.bookmark_value

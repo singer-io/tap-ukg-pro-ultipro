@@ -1,19 +1,18 @@
 import copy
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from singer.catalog import Catalog
 
 from tap_ukg_pro_ultipro.exceptions import UKGProError, UKGProInternalServerError
 from tap_ukg_pro_ultipro.streams import STREAMS
-from tap_ukg_pro_ultipro.sync import get_stream_object, sync, write_schema
+from tap_ukg_pro_ultipro.sync import get_stream_object, sync
 
 from test_stream_sync import make_client, make_entry, position
 
 ROLES = STREAMS["roles"].path
 JOBS = STREAMS["jobs"].path
 POSITIONS = STREAMS["positions"].path
-PERSON_DETAILS = STREAMS["person_details"].path
 
 
 class SyncHarness(unittest.TestCase):
@@ -177,78 +176,3 @@ class TestStateAndResume(SyncHarness):
         self.run_sync(self.catalog("jobs", "roles", "tax_groups"), client, state)
 
         self.assertEqual(self.schema_order(), ["roles", "tax_groups", "jobs"])
-
-
-class TestParentChildStreams(SyncHarness):
-    """No concrete stream declares a parent today; these cover the supported mechanism.
-
-    `positions` is temporarily declared as the parent of `person_details`.
-    """
-
-    def setUp(self):
-        super().setUp()
-        for patcher in (
-            patch.object(STREAMS["positions"], "children", ["person_details"]),
-            patch.object(STREAMS["person_details"], "parent", "positions"),
-        ):
-            patcher.start()
-            self.addCleanup(patcher.stop)
-
-    def client(self):
-        return make_client({
-            POSITIONS: [[position("A", "2022-03-01T00:00:00Z"), position("B", "2022-04-01T00:00:00Z")]],
-            PERSON_DETAILS: [[{"employeeId": "E1", "datetimeCreated": "2022-03-05T00:00:00Z"}]],
-        })
-
-    def test_parent_syncs_the_selected_child_once_per_parent_record(self):
-        client = self.client()
-
-        self.run_sync(self.catalog("positions", "person_details"), client)
-
-        self.assertEqual(self.schema_order(), ["positions", "person_details"])
-        self.assertEqual(len(self.records_of("positions")), 2)
-        self.assertEqual(len(self.records_of("person_details")), 2)
-        child_requests = [r for r in client.requests if r["endpoint"] == PERSON_DETAILS and r["params"]["page"] == 1]
-        self.assertEqual(len(child_requests), 2)
-
-    def test_child_is_not_synced_on_its_own(self):
-        client = self.client()
-
-        self.run_sync(self.catalog("positions", "person_details"), client)
-
-        # exactly one top level pass over the parent endpoint (page 1 plus the empty page)
-        parent_pages = [r["params"]["page"] for r in client.requests if r["endpoint"] == POSITIONS]
-        self.assertEqual(parent_pages, [1, 2])
-
-    def test_selecting_only_the_child_still_reads_the_parent_but_writes_only_child_data(self):
-        client = self.client()
-
-        self.run_sync(self.catalog("positions", "person_details", unselected=("positions",)), client)
-
-        self.assertEqual(self.schema_order(), ["person_details"])
-        self.assertEqual(self.records_of("positions"), [])
-        self.assertEqual(len(self.records_of("person_details")), 2)
-
-    def test_unselected_child_is_not_synced(self):
-        client = self.client()
-
-        self.run_sync(self.catalog("positions", "person_details", unselected=("person_details",)), client)
-
-        self.assertEqual(self.schema_order(), ["positions"])
-        self.assertNotIn(PERSON_DETAILS, {r["endpoint"] for r in client.requests})
-
-
-class TestWriteSchemaChildren(unittest.TestCase):
-
-    def test_child_missing_from_the_catalog_is_skipped(self):
-        parent = MagicMock()
-        parent.is_selected.return_value = True
-        parent.children = ["roles"]
-        parent.child_to_sync = []
-        catalog = MagicMock()
-        catalog.get_stream.return_value = None
-
-        write_schema(parent, MagicMock(), ["roles"], catalog)
-
-        parent.write_schema.assert_called_once()
-        self.assertEqual(parent.child_to_sync, [])
