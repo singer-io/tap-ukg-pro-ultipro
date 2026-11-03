@@ -1,1 +1,71 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "budgetGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "code": {
+      "type": "string"
+    },
+    "currentYearBudgetFTE": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "currentYearBudgetSalary": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "glSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "lastYearBudgetFTE": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "lastYearBudgetSalary": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "level": {
+      "type": "integer"
+    },
+    "levelDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reportingCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

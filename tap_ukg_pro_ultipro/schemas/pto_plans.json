@@ -1,1 +1,53 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": "string"
+    },
+    "ptoPlan": {
+      "type": "string"
+    },
+    "earned": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "taken": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "pendingBalance": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "earnedThroughDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "reset": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "pendingMoveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

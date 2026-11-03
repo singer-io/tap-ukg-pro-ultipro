@@ -1,1 +1,180 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "string"
+    },
+    "payPeriodEndDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "accountType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "baseSegment": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "creditAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "debitAmt": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "generalLedgerAccount": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobDesc": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "location": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel1": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel2": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel3": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "orgLevel4": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodEndDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "periodStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "positionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "positionDesc": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "project": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "blockId": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "coId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "glRunDateTime": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "totalNrOfBlocks": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "userWhoRanThisGl": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "glJson": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

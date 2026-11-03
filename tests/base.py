@@ -20,6 +20,22 @@ class ukg_pro_ultiproBaseTest(BaseCase):
     start_date = "2019-01-01T00:00:00Z"
     PARENT_TAP_STREAM_ID = "parent-tap-stream-id"
 
+    # Streams with very large production data volumes (hundreds of thousands
+    # to millions of records per full sync, per scripts/profile_sync.py
+    # profiling output). Running full-sync-dependent tap-tester suites
+    # (pagination, all/automatic fields, bookmark, start date) against these
+    # streams can take tens of minutes per stream and dominate total suite
+    # runtime, so they are excluded by default from those test suites. They
+    # are still covered by discovery tests and should be spot-checked
+    # manually or via a dedicated/less frequent large-data test run.
+    LARGE_DATA_STREAMS = {
+        "payroll_deductions_history",
+        "pay_register",
+        "earnings_history_base_elements",
+        "employee_changes",
+        "employee_job_history_details",
+    }
+
     @staticmethod
     def tap_name():
         """The name of the tap."""
@@ -35,7 +51,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
         """The expected streams and metadata about the streams."""
         return {
             "company_details": {
-                cls.PRIMARY_KEYS: { "companyID" },
+                cls.PRIMARY_KEYS: { "companyId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -49,7 +65,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "insurance_rates": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "deductionCode" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -147,7 +163,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "earnings_history_base_elements": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "companyId", "employeeId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -175,9 +191,9 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "pay_group_payperiods": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "payGroup", "payPeriodId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -321,27 +337,6 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
-            "international_employees": {
-                cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
-            "open_enrollment_employee_deductions": {
-                cls.PRIMARY_KEYS: { "employeeId", "deductionCode" },
-                cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "createDatetime" },
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
-            "employee_deductions": {
-                cls.PRIMARY_KEYS: { "employeeId", "dedCode" },
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
-                cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
-            },
             "dependent_deductions": {
                 cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
@@ -395,8 +390,13 @@ class ukg_pro_ultiproBaseTest(BaseCase):
 
     @staticmethod
     def get_credentials():
-        """Authentication information for the test account."""
-        credentials_dict = {}
+        """Authentication information for the test account.
+
+        Raises a RuntimeError immediately (fail fast) if any of the
+        required environment variables are missing or empty, rather than
+        letting tests proceed with `None`/blank credentials and fail later
+        with a confusing auth error.
+        """
         creds = {
             'username': 'TAP_UKG_PRO_ULTIPRO_USERNAME',
             'password': 'TAP_UKG_PRO_ULTIPRO_PASSWORD',
@@ -404,8 +404,21 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             'hostname': 'TAP_UKG_PRO_ULTIPRO_HOSTNAME',
         }
 
-        for cred in creds:
-            credentials_dict[cred] = os.getenv(creds[cred])
+        credentials_dict = {}
+        missing_env_vars = []
+        for cred, env_var in creds.items():
+            value = os.getenv(env_var)
+            if not value:
+                missing_env_vars.append(env_var)
+            credentials_dict[cred] = value
+
+        if missing_env_vars:
+            raise RuntimeError(
+                "Missing required environment variable(s) for test credentials: "
+                "{}. Set them before running the tap tester suite.".format(
+                    ", ".join(missing_env_vars)
+                )
+            )
 
         return credentials_dict
 

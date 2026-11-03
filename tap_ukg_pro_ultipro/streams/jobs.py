@@ -6,3 +6,5 @@ class Jobs(FullTableStream):
     key_properties = ["jobCode"]
     replication_method = "FULL_TABLE"
     path = "/configuration/v2/jobs"
+    # Observed sync volume is ~570 records.
+    page_size = 500

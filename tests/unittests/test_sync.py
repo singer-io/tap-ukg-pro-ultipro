@@ -1,54 +1,9 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from tap_ukg_pro_ultipro.sync import write_schema, sync, update_currently_syncing
+from tap_ukg_pro_ultipro.sync import sync, update_currently_syncing
 
 
 class TestSync(unittest.TestCase):
-
-    def test_write_schema_only_parent_selected(self):
-        mock_stream = MagicMock()
-        mock_stream.is_selected.return_value = True
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
-        mock_stream.child_to_sync = []
-
-        client = MagicMock()
-        catalog = MagicMock()
-        catalog.get_stream.return_value = MagicMock()
-
-        write_schema(mock_stream, client, [], catalog)
-
-        mock_stream.write_schema.assert_called_once()
-        self.assertEqual(len(mock_stream.child_to_sync), 0)
-
-    def test_write_schema_parent_child_both_selected(self):
-        mock_stream = MagicMock()
-        mock_stream.is_selected.return_value = True
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
-        mock_stream.child_to_sync = []
-
-        client = MagicMock()
-        catalog = MagicMock()
-        catalog.get_stream.return_value = MagicMock()
-
-        write_schema(mock_stream, client, ["invoice_payments"], catalog)
-
-        mock_stream.write_schema.assert_called_once()
-        self.assertEqual(len(mock_stream.child_to_sync), 1)
-
-    def test_write_schema_child_selected(self):
-        mock_stream = MagicMock()
-        mock_stream.is_selected.return_value = False
-        mock_stream.children = ["invoice_payments", "invoice_line_items"]
-        mock_stream.child_to_sync = []
-
-        client = MagicMock()
-        catalog = MagicMock()
-        catalog.get_stream.return_value = MagicMock()
-
-        write_schema(mock_stream, client, ["invoice_payments", "invoice_line_items"], catalog)
-
-        self.assertEqual(mock_stream.write_schema.call_count, 0)
-        self.assertEqual(len(mock_stream.child_to_sync), 2)
 
     @patch("singer.write_schema")
     @patch("singer.get_currently_syncing")
@@ -57,13 +12,13 @@ class TestSync(unittest.TestCase):
     @patch("tap_ukg_pro_ultipro.streams.abstracts.IncrementalStream.sync")
     def test_sync_stream1_called(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
         mock_catalog = MagicMock()
-        invoice_stream = MagicMock()
-        invoice_stream.stream = "invoices"
-        expense_stream = MagicMock()
-        expense_stream.stream = "expenses"
+        first_stream = MagicMock()
+        first_stream.tap_stream_id = "positions"
+        second_stream = MagicMock()
+        second_stream.tap_stream_id = "person_details"
         mock_catalog.get_selected_streams.return_value = [
-            invoice_stream,
-            expense_stream
+            first_stream,
+            second_stream
         ]
         state = {}
 
@@ -74,43 +29,26 @@ class TestSync(unittest.TestCase):
 
         self.assertEqual(mock_sync.call_count, 2)
 
-    @patch("singer.write_schema")
-    @patch("singer.get_currently_syncing")
-    @patch("singer.Transformer")
-    @patch("singer.write_state")
-    @patch("tap_ukg_pro_ultipro.streams.abstracts.IncrementalStream.sync")
-    def test_sync_child_selected(self, mock_sync, mock_write_state, mock_transformer, mock_get_currently_syncing, mock_write_schema):
-        mock_catalog = MagicMock()
-        invoice_messages_stream = MagicMock()
-        invoice_messages_stream.stream = "invoice_messages"
-        invoice_payments_stream = MagicMock()
-        invoice_payments_stream.stream = "invoice_payments"
-        mock_catalog.get_selected_streams.return_value = [
-            invoice_messages_stream,
-            invoice_payments_stream
-        ]
-        state = {}
-
-        client = MagicMock()
-        config = {}
-
-        sync(client, config, mock_catalog, state)
-
-        self.assertEqual(mock_sync.call_count, 1)
-
     @patch("singer.get_currently_syncing")
     @patch("singer.set_currently_syncing")
     @patch("singer.write_state")
     def test_remove_currently_syncing(self, mock_write_state, mock_set_currently_syncing, mock_get_currently_syncing):
-        mock_get_currently_syncing.return_value = "some_stream"
         state = {"currently_syncing": "some_stream"}
 
         update_currently_syncing(state, None)
 
-        mock_get_currently_syncing.assert_called_once_with(state)
         mock_set_currently_syncing.assert_not_called()
         mock_write_state.assert_called_once_with(state)
         self.assertNotIn("currently_syncing", state)
+
+    @patch("singer.write_state")
+    def test_remove_currently_syncing_when_not_set(self, mock_write_state):
+        state = {"bookmarks": {}}
+
+        update_currently_syncing(state, None)
+
+        self.assertEqual(state, {"bookmarks": {}})
+        mock_write_state.assert_called_once_with(state)
 
     @patch("singer.get_currently_syncing")
     @patch("singer.set_currently_syncing")

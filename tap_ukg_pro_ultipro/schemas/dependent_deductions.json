@@ -1,1 +1,162 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "benefitAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "benefitStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "benefitStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "benefitStatusDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "benefitStopDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "certificateNo": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "contactID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currentCOID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "declinedByCarrierDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "deductionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionNotes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "deductionType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "declinedByCarrier": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "declinedByCarrierReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "depBPlanTVID": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "systemID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "eoiDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "needEOI": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "primaryCarePhysician": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "primaryCarePhysicianId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isBenefitWaived": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}

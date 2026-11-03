@@ -1,1 +1,78 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "personID": {
+      "type": "string"
+    },
+    "employeeID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraExport": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraIsActive": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "cobraNotes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "cobraStatusDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfCobraEvent": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfCobraExport": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfCobraLetter": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

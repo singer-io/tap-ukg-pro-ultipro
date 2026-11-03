@@ -1,1 +1,62 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "contractNumber": {
+      "type": "string"
+    },
+    "contractTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "effectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "rowLastChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "page": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "per_Page": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "pagesCount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    }
+  }
+}

@@ -1,1 +1,52 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "userName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userLastLogonDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userLastPasswordChangeDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "userStatus": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "integrationUserKey": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

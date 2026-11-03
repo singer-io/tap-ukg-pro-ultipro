@@ -1,1 +1,77 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "auditKey": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "formerName": {
+      "type": [
+        "null",
+        "object"
+      ]
+    },
+    "lastName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "middleName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneCountryCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneCountryPrefix": {
+      "type": [
+        "null",
+        "object"
+      ]
+    },
+    "phoneTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneExtension": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "phoneIsPrivate": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

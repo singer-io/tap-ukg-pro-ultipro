@@ -1,1 +1,200 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "personID": {
+      "type": "string"
+    },
+    "employeeID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "companyID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "communityBroadcastSMSCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "consentElectronicW2": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "consentElectronicW2PR": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "dateDeceased": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateOfI9Expiration": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "i9AlienNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocA": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocB": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9DocC": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9Verified": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "i9VisaType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9WorkAuth": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isMultiPayGroup": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "militaryBranchServed": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryEra": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsDisabledVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsOthEligVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsOthEligVetBasis": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryIsActiveWartimeVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "w2IsDeceased": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "militarySeparationDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "smsApprovals": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "smsPayNotification": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "chkCashingInstCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "i9VisaExpirationDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "militaryIsMedalVet": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "militaryService": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

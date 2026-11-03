@@ -1,1 +1,72 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "asOfDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "triggerTermination": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "status": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "statusStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "statusReason": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "statusReasonDesc": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isPrimary": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isPrimaryEffectiveDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "originalHireDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

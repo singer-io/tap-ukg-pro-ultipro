@@ -40,8 +40,6 @@ from tap_ukg_pro_ultipro.streams.employee_global_banks import EmployeeGlobalBank
 from tap_ukg_pro_ultipro.streams.employee_global_localization_elements import EmployeeGlobalLocalizationElements
 from tap_ukg_pro_ultipro.streams.employee_pay_deduction_elements import EmployeePayDeductionElements
 from tap_ukg_pro_ultipro.streams.international_employees import InternationalEmployees
-from tap_ukg_pro_ultipro.streams.open_enrollment_employee_deductions import OpenEnrollmentEmployeeDeductions
-from tap_ukg_pro_ultipro.streams.employee_deductions import EmployeeDeductions
 from tap_ukg_pro_ultipro.streams.dependent_deductions import DependentDeductions
 from tap_ukg_pro_ultipro.streams.person_details import PersonDetails
 from tap_ukg_pro_ultipro.streams.pto_plans import PtoPlans
@@ -92,9 +90,7 @@ STREAMS = {
     "employee_global_banks": EmployeeGlobalBanks,
     "employee_global_localization_elements": EmployeeGlobalLocalizationElements,
     "employee_pay_deduction_elements": EmployeePayDeductionElements,
-    "international_employees": InternationalEmployees,
-    "open_enrollment_employee_deductions": OpenEnrollmentEmployeeDeductions,
-    "employee_deductions": EmployeeDeductions,
+    # "international_employees": InternationalEmployees,
     "dependent_deductions": DependentDeductions,
     "person_details": PersonDetails,
     "pto_plans": PtoPlans,

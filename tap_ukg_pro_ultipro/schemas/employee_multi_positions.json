@@ -1,1 +1,250 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "positionCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isPrimary": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "annualSalary": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "fullTimeOrPartTimeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullTimeOrPartTime": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "clockCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dateTimeCreated": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "employeeTypeCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeTypeDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "effectiveStartDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "effectiveStopDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "isEligibleForBenefits": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "locationCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "notes": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel1Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel2Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel3Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "organizationLevel4Code": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "otherRate1": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate2": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate3": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "otherRate4": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "overrideIncumbentData": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "piecePayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "projectCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourlyCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "salaryOrHourly": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "scheduledAnnualHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "scheduledFullTimeEmployee": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "scheduledWorkHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "shiftCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shiftGroupCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shiftGroupDescription": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "systemId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "weeklyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    }
+  }
+}

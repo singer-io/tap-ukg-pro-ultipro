@@ -6,3 +6,5 @@ class UserDetails(FullTableStream):
     key_properties = ["userId"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/user-details"
+    # Observed sync volume is ~1,471 records.
+    page_size = 1000

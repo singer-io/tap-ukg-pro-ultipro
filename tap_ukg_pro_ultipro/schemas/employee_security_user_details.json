@@ -1,1 +1,43 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "userID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "userName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "fullName": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "passwordLastChanged": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "lastLogon": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    }
+  }
+}

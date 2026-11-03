@@ -15,6 +15,7 @@ from tap_ukg_pro_ultipro.exceptions import (
 
 LOGGER = get_logger()
 REQUEST_TIMEOUT = 300
+MAX_LOGGED_BODY_LENGTH = 500
 
 # Config keys needed to authenticate and build request URLs.
 AUTH_CONFIG_KEYS = ("username", "password", "api_key", "hostname")
@@ -66,6 +67,12 @@ def raise_for_error(response: requests.Response) -> None:
     except Exception:
         response_json = {}
     if response.status_code not in [200, 201, 204]:
+        logged_body = response_json or getattr(response, "text", "")
+        LOGGER.error(
+            "API request failed with HTTP-error-code: %s, response body: %s",
+            response.status_code,
+            str(logged_body)[:MAX_LOGGED_BODY_LENGTH],
+        )
         if response_json.get("error"):
             message = f"HTTP-error-code: {response.status_code}, Error: {response_json.get('error')}"
         else:
@@ -73,9 +80,16 @@ def raise_for_error(response: requests.Response) -> None:
                 response.status_code, {}
             ).get("message", "Unknown Error")
             message = f"HTTP-error-code: {response.status_code}, Error: {response_json.get('message', error_message)}"
-        exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
-            "raise_exception", UKGProError
-        )
+
+        # For 5xx errors, use backoff exception if not specifically mapped
+        if 500 <= response.status_code < 600:
+            exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
+                "raise_exception", UKGProBackoffError
+            )
+        else:
+            exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
+                "raise_exception", UKGProError
+            )
         raise exc(message, response) from None
 
 class Client:
@@ -114,7 +128,7 @@ class Client:
         """Adds HTTP Basic credentials and the customer API key to the request."""
         credentials = f"{self.config['username']}:{self.config['password']}"
         encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("ascii")
-
+        headers['Accept'] = 'application/json'
         headers['Authorization'] = f"Basic {encoded_credentials}"
         headers[API_KEY_HEADER] = self.config['api_key']
 
@@ -171,4 +185,6 @@ class Client:
             else:
                 raise ValueError(f"Unsupported method: {method}")
 
+        if response.status_code == 204:
+            return None
         return response.json()

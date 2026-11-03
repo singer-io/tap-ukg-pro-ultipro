@@ -1,1 +1,294 @@
-{}
+{
+  "type": "object",
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": "string"
+    },
+    "earningCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "employeeNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "genNumber": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodControl": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payGroup": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "accrualCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "baseAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "batchID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "calculationRule": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "calculationSequence": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "currentAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "currentHours": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "glBaseSegmentId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "glFollowBaseAccountAllocation": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "grossUp": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "grossUpTarget": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "grossUpTaxCalculationMethod": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "hourlyPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "includeInDeferredCompensation": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "includeInDeferredCompensationHours": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isVoided": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "isVoidingRecord": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "jobCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "jobPremiumAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "jobPremiumRateOrPercent": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "location": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "numberOfDays": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "numberOfGames": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "payDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "payoutRateType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "payRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "paySheetID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "periodPayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "pieceCount": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "piecePayRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "planYear": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "project": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "reportCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCalculationGroupId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "taxCategory": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timeClockCode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "tipCredit": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "tipGrossReceipts": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "tipType": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "useDeductionOffSet": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "ytdAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "ytdShiftAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    }
+  }
+}
