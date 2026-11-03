@@ -40,7 +40,7 @@
     "employeeNumber": {
       "type": [
         "null",
-        "integer"
+        "string"
       ]
     },
     "employeeId": {

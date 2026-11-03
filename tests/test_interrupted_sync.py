@@ -12,7 +12,8 @@ class ukg_pro_ultiproInterruptedSyncTest(InterruptedSyncTest, ukg_pro_ultiproBas
         return "tap_tester_ukg_pro_ultipro_interrupted_sync_test"
 
     def streams_to_test(self):
-        return self.expected_stream_names()
+        # Exclude large-data-volume streams to avoid excessively slow test runs.
+        return self.expected_stream_names().difference(self.LARGE_DATA_STREAMS)
 
 
     def manipulate_state(self):

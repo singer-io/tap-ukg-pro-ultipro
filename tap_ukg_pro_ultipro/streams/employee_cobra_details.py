@@ -6,3 +6,5 @@ class EmployeeCobraDetails(FullTableStream):
     key_properties = ["personID"]
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/employee-cobra-details"
+    # Observed sync volume is ~1,490 records.
+    page_size = 1000

@@ -1,7 +1,7 @@
-from tap_ukg_pro_ultipro.streams.abstracts import FullTableStream
+from tap_ukg_pro_ultipro.streams.abstracts import IncrementalStream
 
 
-class PositionReports(FullTableStream):
+class PositionReports(IncrementalStream):
     tap_stream_id = "position_reports"
     key_properties = ["positionCode"]
     replication_method = "INCREMENTAL"

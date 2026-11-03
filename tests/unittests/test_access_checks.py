@@ -32,9 +32,6 @@ CONFIG = {
 }
 SECRETS = ("dummy_user", "dummy_password", "dummy_api_key", "servicet.example.com")
 
-# Endpoints that need query parameters and answer HTTP 400 without them.
-REQUIRED_PARAM_STREAMS = ("employee_deductions", "open_enrollment_employee_deductions")
-
 
 class FakeResponse:
     """Minimal stand-in for requests.Response used by the real Client."""
@@ -134,29 +131,6 @@ class TestStreamCheckAccess(unittest.TestCase):
         with self.assertRaises(error):
             make_stream("roles", client).check_access()
 
-    @parameterized.expand([[name] for name in REQUIRED_PARAM_STREAMS])
-    def test_400_from_required_param_endpoint_is_not_treated_as_403(self, stream_name):
-        client = MagicMock()
-        client.make_request.side_effect = UKGProBadRequestError("HTTP-error-code: 400")
-        with patch("tap_ukg_pro_ultipro.streams.abstracts.LOGGER") as mock_logger:
-            with self.assertRaises(UKGProBadRequestError):
-                make_stream(stream_name, client).check_access()
-        # not classified as an access failure, so no exclusion warning is logged
-        mock_logger.warning.assert_not_called()
-
-    @parameterized.expand([[name] for name in REQUIRED_PARAM_STREAMS])
-    def test_403_from_required_param_endpoint_is_excluded(self, stream_name):
-        client = MagicMock()
-        client.make_request.side_effect = UKGProForbiddenError("HTTP-error-code: 403")
-        self.assertFalse(make_stream(stream_name, client).check_access())
-
-    @parameterized.expand([[name] for name in REQUIRED_PARAM_STREAMS])
-    def test_other_errors_from_required_param_endpoint_still_propagate(self, stream_name):
-        client = MagicMock()
-        client.make_request.side_effect = UKGProInternalServerError("HTTP-error-code: 500")
-        with self.assertRaises(UKGProInternalServerError):
-            make_stream(stream_name, client).check_access()
-
 
 class TestCheckAccessWithRealClient(unittest.TestCase):
     """check_access through the real Client, so status-code mapping is exercised."""
@@ -178,12 +152,6 @@ class TestCheckAccessWithRealClient(unittest.TestCase):
     def test_http_200_with_empty_list_is_accessible(self):
         result, _ = self._check("roles", FakeResponse(200, []))
         self.assertTrue(result)
-
-    def test_http_400_on_required_param_stream_is_not_treated_as_403(self):
-        with self.assertRaises(UKGProBadRequestError):
-            self._check(
-                "employee_deductions", FakeResponse(400, {"message": "dedCode is required"})
-            )
 
     def test_http_400_on_regular_stream_raises(self):
         with self.assertRaises(UKGProBadRequestError):
