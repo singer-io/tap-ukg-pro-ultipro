@@ -27,10 +27,10 @@ CONFIG = {
     "username": "dummy_user",
     "password": "dummy_password",
     "api_key": "dummy_api_key",
-    "hostname": "servicet.example.com",
+    "hostname": "servicet.ultipro.com",
     "start_date": "2022-01-01T00:00:00Z",
 }
-SECRETS = ("dummy_user", "dummy_password", "dummy_api_key", "servicet.example.com")
+SECRETS = ("dummy_user", "dummy_password", "dummy_api_key", "servicet.ultipro.com")
 
 
 class FakeResponse:
@@ -166,7 +166,7 @@ class TestCheckAccessWithRealClient(unittest.TestCase):
         method, url = req.call_args.args
         kwargs = req.call_args.kwargs
         self.assertEqual(method, "GET")
-        self.assertEqual(url, "https://servicet.example.com/configuration/v1/roles")
+        self.assertEqual(url, "https://servicet.ultipro.com/configuration/v1/roles")
         self.assertEqual(kwargs["params"], {"per_page": 1, "page": 1})
         self.assertIn("Authorization", kwargs["headers"])
         self.assertEqual(kwargs["headers"]["US-Customer-Api-Key"], "dummy_api_key")

@@ -1,11 +1,11 @@
 import base64
 import unittest
 import requests
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from parameterized import parameterized
 from requests.exceptions import Timeout, ConnectionError, ChunkedEncodingError
 from tap_ukg_pro_ultipro import REQUIRED_CONFIG_KEYS
-from tap_ukg_pro_ultipro.client import Client, normalize_hostname
+from tap_ukg_pro_ultipro.client import Client, normalize_hostname, raise_for_error
 from tap_ukg_pro_ultipro.exceptions import (
     UKGProError,
     UKGProBadRequestError,
@@ -26,7 +26,7 @@ default_config = {
     "username": "dummy_user",
     "password": "dummy_password",
     "api_key": "dummy_api_key",
-    "hostname": "servicet.example.com",
+    "hostname": "servicet.ultipro.com",
     "start_date": "2022-01-01T00:00:00Z",
     "request_timeout": 30,
 }
@@ -38,14 +38,14 @@ class MockResponse:
     """Mocked standard HTTPResponse to test error handling."""
 
     def __init__(
-        self, status_code, resp = "", content=[""], headers=None, raise_error=True, text={}
+        self, status_code, resp=None, content=None, headers=None, raise_error=True, text=None
     ):
-        self.json_data = resp
+        self.json_data = {} if resp is None else resp
         self.status_code = status_code
-        self.content = content
-        self.headers = headers
+        self.content = [""] if content is None else content
+        self.headers = {} if headers is None else headers
         self.raise_error = raise_error
-        self.text = text
+        self.text = "" if text is None else text
         self.reason = "error"
 
     def raise_for_status(self):
@@ -64,7 +64,7 @@ class MockResponse:
 
     def json(self):
         """Returns a JSON object of the result."""
-        return self.text
+        return self.json_data
 
 class TestClient(unittest.TestCase):
 
@@ -106,34 +106,56 @@ class TestClient(unittest.TestCase):
                 self.assertNotIn(secret, str(ctx.exception))
 
     @parameterized.expand([
-        ["bare host", "servicet.example.com", "https://servicet.example.com"],
-        ["https scheme", "https://servicet.example.com", "https://servicet.example.com"],
-        ["trailing slash", "https://servicet.example.com/", "https://servicet.example.com"],
-        ["surrounding spaces", "  servicet.example.com  ", "https://servicet.example.com"],
-        ["host with path", "servicet.example.com/services/", "https://servicet.example.com/services"],
+        ["bare host", "servicet.ultipro.com", "https://servicet.ultipro.com"],
+        ["https scheme", "https://servicet.ultipro.com", "https://servicet.ultipro.com"],
+        ["trailing slash", "https://servicet.ultipro.com/", "https://servicet.ultipro.com"],
+        ["surrounding spaces", "  servicet.ultipro.com  ", "https://servicet.ultipro.com"],
+        ["mixed case", "ServiceT.UltiPro.com", "https://servicet.ultipro.com"],
+        ["ultipro.ca", "service.ultipro.ca", "https://service.ultipro.ca"],
+        ["ukg.com", "tenant.ukg.com", "https://tenant.ukg.com"],
     ])
     def test_normalize_hostname(self, test_name, value, expected):
         self.assertEqual(normalize_hostname(value), expected)
 
     @parameterized.expand([
-        ["plain http", "http://servicet.example.com"],
+        ["plain http", "http://servicet.ultipro.com"],
         ["only scheme", "https://"],
-        ["inner space", "service t.example.com"],
-        ["query string", "servicet.example.com?x=1"],
+        ["inner space", "service t.ultipro.com"],
+        ["query string", "servicet.ultipro.com?x=1"],
+        ["host with path", "servicet.ultipro.com/services/"],
+        ["metadata ip", "169.254.169.254"],
+        ["loopback", "localhost"],
+        ["loopback ip with port", "127.0.0.1:8443"],
+        ["unapproved domain", "servicet.example.com"],
+        ["suffix lookalike", "servicet.evilultipro.com"],
+        ["approved domain as subdomain of attacker", "servicet.ultipro.com.evil.com"],
+        ["approved domain in path", "evil.com/servicet.ultipro.com"],
+        ["userinfo", "servicet.ultipro.com@evil.com"],
+        ["userinfo prefix", "evil.com@servicet.ultipro.com"],
+        ["port", "servicet.ultipro.com:8443"],
+        ["backslash", "evil.com\\@servicet.ultipro.com"],
+        ["bare approved domain", "ultipro.com"],
     ])
     def test_normalize_hostname_rejects_invalid(self, test_name, value):
         with self.assertRaises(UKGProError):
             normalize_hostname(value)
 
+    @parameterized.expand([["169.254.169.254"], ["attacker.example.net"]])
+    def test_client_rejects_untrusted_hostname_without_sending_anything(self, hostname):
+        with patch("requests.Session.request") as mock_request:
+            with self.assertRaises(UKGProError):
+                Client(dict(default_config, hostname=hostname))
+        mock_request.assert_not_called()
+
     def test_build_url_uses_tenant_host_and_path(self):
         self.assertEqual(
             self.client.build_url("/personnel/v1/compensation-details"),
-            "https://servicet.example.com/personnel/v1/compensation-details",
+            "https://servicet.ultipro.com/personnel/v1/compensation-details",
         )
         # no double slashes and the trailing slash of the documented path is preserved
         self.assertEqual(
             self.client.build_url("/configuration/v1/locations/"),
-            "https://servicet.example.com/configuration/v1/locations/",
+            "https://servicet.ultipro.com/configuration/v1/locations/",
         )
         self.assertNotIn("developer.ukg.com", self.client.base_url)
 
@@ -150,19 +172,120 @@ class TestClient(unittest.TestCase):
         shared_headers = {}
         self.client.make_request("GET", "", params={}, headers=shared_headers, path="/roles")
         args, kwargs = mock_make_request.call_args
-        self.assertEqual(args, ("GET", "https://servicet.example.com/roles"))
+        self.assertEqual(args, ("GET", "https://servicet.ultipro.com/roles"))
         self.assertIn("Authorization", kwargs["headers"])
         self.assertEqual(shared_headers, {})
 
-    @patch("tap_ukg_pro_ultipro.client.LOGGER")
-    @patch("tap_ukg_pro_ultipro.client.Client._Client__make_request")
-    def test_request_logging_does_not_leak_secrets(self, mock_make_request, mock_logger):
-        mock_make_request.return_value = []
-        self.client.make_request("GET", "", params={"page": 1}, path="/roles")
-        logged = " ".join(str(a) for call in mock_logger.mock_calls for a in call.args)
+    @parameterized.expand([
+        ["other host", "https://attacker.example.net/resource"],
+        ["metadata ip", "https://169.254.169.254/latest/meta-data"],
+        ["plain http", "http://servicet.ultipro.com/resource"],
+        ["other port", "https://servicet.ultipro.com:8443/resource"],
+        ["userinfo", "https://servicet.ultipro.com@attacker.example.net/resource"],
+        ["suffix lookalike", "https://servicet.ultipro.com.attacker.example.net/resource"],
+        ["other approved tenant", "https://service4.ultipro.com/resource"],
+    ])
+    def test_make_request_rejects_untrusted_destination_without_sending_credentials(self, test_name, url):
+        with patch.object(self.client._session, "request") as mock_request:
+            with self.assertRaises(UKGProError):
+                self.client.make_request("GET", url)
+            with self.assertRaises(UKGProError):
+                self.client._Client__make_request("GET", url, headers={"Authorization": "secret"})
+        mock_request.assert_not_called()
+
+    def test_make_request_disables_redirects(self):
+        response = MockResponse(200, resp=[])
+        with patch.object(self.client._session, "request", return_value=response) as mock_request:
+            self.client.make_request("GET", "", path="/roles")
+        self.assertIs(mock_request.call_args.kwargs["allow_redirects"], False)
+
+    @parameterized.expand([[301], [302], [303], [307], [308]])
+    def test_redirect_response_is_not_followed(self, status_code):
+        redirect = MockResponse(
+            status_code, headers={"Location": "https://attacker.example.net/"}
+        )
+        with patch.object(self.client._session, "request", return_value=redirect) as mock_request:
+            with self.assertRaises(UKGProError) as ctx:
+                self.client.make_request("GET", "", path="/roles")
+        # a single request was made; the Location target was never contacted
+        self.assertEqual(mock_request.call_count, 1)
+        self.assertNotIn("attacker", str(ctx.exception))
+        for secret in self._secrets():
+            self.assertNotIn(secret, str(ctx.exception))
+
+    @staticmethod
+    def _secrets():
         encoded = base64.b64encode(b"dummy_user:dummy_password").decode()
-        for secret in ("dummy_password", "dummy_api_key", encoded):
+        return ("dummy_user", "dummy_password", "dummy_api_key", encoded)
+
+    def test_credentials_only_sent_to_configured_origin(self):
+        response = MockResponse(200, resp=[])
+        with patch.object(self.client._session, "request", return_value=response) as mock_request:
+            self.client.make_request("GET", "", path="/roles")
+        mock_request.assert_called_once()
+        method, url = mock_request.call_args.args
+        self.assertEqual(url, "https://servicet.ultipro.com/roles")
+        headers = mock_request.call_args.kwargs["headers"]
+        expected = base64.b64encode(b"dummy_user:dummy_password").decode()
+        self.assertEqual(headers["Authorization"], f"Basic {expected}")
+        self.assertEqual(headers["US-Customer-Api-Key"], "dummy_api_key")
+
+    @patch("tap_ukg_pro_ultipro.client.LOGGER")
+    def test_error_logging_does_not_leak_response_body_or_secrets(self, mock_logger):
+        body = {
+            "message": "bad request",
+            "ssn": "123-45-6789",
+            "token": "dummy-bearer-token",
+            "employee": "Jane Sensitive",
+        }
+        response = MockResponse(400, resp=body, text=str(body))
+        with patch.object(self.client._session, "request", return_value=response):
+            with self.assertRaises(UKGProBadRequestError):
+                self.client.make_request("GET", "", params={"page": 1}, path="/roles")
+
+        mock_logger.error.assert_called_once()
+        logged = " ".join(
+            str(a) for call in mock_logger.mock_calls for a in call.args
+        )
+        self.assertIn("400", logged)
+        for secret in (
+            "123-45-6789", "dummy-bearer-token", "Jane Sensitive", "servicet.ultipro.com",
+            *self._secrets(),
+        ):
             self.assertNotIn(secret, logged)
+
+    @parameterized.expand([
+        ["list", [{"message": "x"}]],
+        ["null", None],
+        ["string", "oops"],
+        ["number", 42],
+    ])
+    def test_non_dict_error_json_is_tolerated(self, test_name, payload):
+        response = MagicMock(status_code=400)
+        response.json.return_value = payload
+        with self.assertRaises(UKGProBadRequestError) as ctx:
+            raise_for_error(response)
+        self.assertIn("A validation exception has occurred.", str(ctx.exception))
+
+    def test_invalid_json_error_body_is_tolerated(self):
+        response = MagicMock(status_code=404)
+        response.json.side_effect = ValueError("not json")
+        with self.assertRaises(UKGProNotFoundError):
+            raise_for_error(response)
+
+    def test_mock_response_returns_json_data_and_has_no_shared_state(self):
+        self.assertEqual(MockResponse(400, resp={"message": "m"}).json(), {"message": "m"})
+        first, second = MockResponse(200), MockResponse(200)
+        first.headers["x"] = "y"
+        first.content.append("z")
+        self.assertEqual(second.headers, {})
+        self.assertEqual(second.content, [""])
+
+    def test_api_error_message_is_used_and_bounded(self):
+        response = MockResponse(400, resp={"message": "m" * 5000})
+        with self.assertRaises(UKGProBadRequestError) as ctx:
+            raise_for_error(response)
+        self.assertLess(len(str(ctx.exception)), 600)
 
     @parameterized.expand([
         ["400 error", 400, MockResponse(400), UKGProBadRequestError, "A validation exception has occurred."],
@@ -176,8 +299,7 @@ class TestClient(unittest.TestCase):
 
         with patch.object(self.client._session, "request", return_value=mock_response):
             with self.assertRaises(error) as e:
-                self.client._Client__make_request("GET", "https://api.example.com/resource")
-
+                self.client._Client__make_request("GET", self.client.build_url("/resource"))
         expected_error_message = (f"HTTP-error-code: {error_code}, Error: {error_message}")
         self.assertEqual(str(e.exception), expected_error_message)
 
@@ -193,7 +315,7 @@ class TestClient(unittest.TestCase):
 
         with patch.object(self.client._session, "request", return_value=mock_response) as mock_request:
             with self.assertRaises(error) as e:
-                self.client._Client__make_request("GET", "https://api.example.com/resource")
+                self.client._Client__make_request("GET", self.client.build_url("/resource"))
 
             expected_error_message = (f"HTTP-error-code: {error_code}, Error: {error_message}")
             self.assertEqual(str(e.exception), expected_error_message)
@@ -210,6 +332,6 @@ class TestClient(unittest.TestCase):
 
         with patch.object(self.client._session, "request", side_effect=error) as mock_request:
             with self.assertRaises(error) as e:
-                self.client._Client__make_request("GET", "https://api.example.com/resource")
+                self.client._Client__make_request("GET", self.client.build_url("/resource"))
 
             self.assertEqual(mock_request.call_count, 5)

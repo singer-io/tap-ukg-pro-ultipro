@@ -494,7 +494,7 @@ class TestClientLogging(unittest.TestCase):
     def setUp(self):
         self.client = Client({
             "username": "dummy_user", "password": "dummy_password", "api_key": "dummy_api_key",
-            "hostname": "servicet.example.com", "start_date": START_DATE,
+            "hostname": "servicet.ultipro.com", "start_date": START_DATE,
         })
 
     @staticmethod
@@ -511,22 +511,23 @@ class TestClientLogging(unittest.TestCase):
 
         text = " ".join(self.logged(mock_logger))
         encoded = base64.b64encode(b"dummy_user:dummy_password").decode()
-        for secret in ("servicet.example.com", "dummy_user", "dummy_password", "dummy_api_key", encoded):
+        for secret in ("servicet.ultipro.com", "dummy_user", "dummy_password", "dummy_api_key", encoded):
             self.assertNotIn(secret, text)
 
-    def test_api_error_logs_status_code_and_body(self):
+    def test_api_error_logs_status_code_but_not_body(self):
         response = MagicMock(status_code=400)
         response.json.return_value = {"message": "dedCode is required"}
 
         with patch("tap_ukg_pro_ultipro.client.LOGGER") as mock_logger:
-            with self.assertRaises(UKGProBadRequestError):
+            with self.assertRaises(UKGProBadRequestError) as ctx:
                 raise_for_error(response)
 
         text = " ".join(self.logged(mock_logger))
         self.assertIn("400", text)
-        self.assertIn("dedCode is required", text)
+        self.assertNotIn("dedCode is required", text)
+        self.assertIn("dedCode is required", str(ctx.exception))
 
-    def test_long_error_bodies_are_truncated_in_the_log(self):
+    def test_long_error_bodies_are_never_logged(self):
         response = MagicMock(status_code=500)
         response.json.side_effect = ValueError("not json")
         response.text = "x" * 5000
@@ -535,7 +536,9 @@ class TestClientLogging(unittest.TestCase):
             with self.assertRaises(UKGProInternalServerError):
                 raise_for_error(response)
 
-        self.assertLess(len(" ".join(self.logged(mock_logger))), 1500)
+        text = " ".join(self.logged(mock_logger))
+        self.assertNotIn("xxx", text)
+        self.assertLess(len(text), 200)
 
     def test_successful_response_logs_no_error(self):
         response = MagicMock(status_code=200)
@@ -554,7 +557,7 @@ class TestClientNoContent(unittest.TestCase):
 
         client = Client({
             "username": "u", "password": "p", "api_key": "k",
-            "hostname": "servicet.example.com", "start_date": START_DATE,
+            "hostname": "servicet.ultipro.com", "start_date": START_DATE,
         })
         response = MagicMock(status_code=204)
         response.json.side_effect = ValueError("no body")

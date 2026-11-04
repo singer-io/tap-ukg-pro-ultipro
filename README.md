@@ -269,7 +269,7 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
 | `username` | Web service account user name |
 | `password` | Web service account password |
 | `api_key` | User API key of the web service account, sent as the `US-Customer-Api-Key` header |
-| `hostname` | Host of your UKG Pro tenant, for example `service.example.com` (an `https://` prefix is accepted; `http://` is rejected) |
+| `hostname` | Host of your UKG Pro tenant, for example `servicet.ultipro.com`. Must be a subdomain of `ultipro.com`, `ultipro.ca` or `ukg.com`, with no port, path or credentials (an `https://` prefix is accepted; `http://` is rejected) |
 | `start_date` | Default start date (RFC 3339) for incremental streams |
 
 
@@ -300,7 +300,7 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
 3. Create your tap's `config.json` file.  The tap config file for this tap should include these entries:
    - `username`, `password` (string, required) - web service account credentials
    - `api_key` (string, required) - user API key of the web service account (sent as `US-Customer-Api-Key`)
-   - `hostname` (string, required) - UKG Pro tenant host (for example `service.example.com`)
+   - `hostname` (string, required) - UKG Pro tenant host (for example `servicet.ultipro.com`)
    - `start_date` (string, required) - the default value to use if no bookmark exists for an endpoint (rfc3339 date string)
    - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-ukg_pro_ultipro <api_user_email@your_company.com>`
    - `request_timeout` (integer, optional): Max time in seconds for request to wait for response. Default: `300`
