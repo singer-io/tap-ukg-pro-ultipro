@@ -122,7 +122,7 @@ class TestStateAndResume(SyncHarness):
 
         self.assertEqual(
             self.states[-1],
-            {"bookmarks": {"positions": {"dateTimeCreated": "2022-03-01T00:00:00.000000Z"}}},
+            {"bookmarks": {"positions": {"dateTimeChanged": "2022-03-01T00:00:00.000000Z"}}},
         )
 
     def test_interrupted_sync_resumes_with_the_currently_syncing_stream(self):
@@ -144,7 +144,7 @@ class TestStateAndResume(SyncHarness):
         self.assertNotIn("currently_syncing", state)
 
     def test_existing_bookmarks_are_preserved(self):
-        bookmarks = {"positions": {"dateTimeCreated": "2022-06-01T00:00:00.000000Z"}}
+        bookmarks = {"positions": {"dateTimeChanged": "2022-06-01T00:00:00.000000Z"}}
         client = make_client({ROLES: [[{"roleId": "1"}]]})
         state = {"bookmarks": copy.deepcopy(bookmarks)}
 

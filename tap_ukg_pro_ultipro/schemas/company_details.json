@@ -176,7 +176,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "usePositionManagement": {
       "type": [

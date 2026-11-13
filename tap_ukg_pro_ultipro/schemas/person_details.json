@@ -248,7 +248,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "healthWeight": {
       "type": [
@@ -404,7 +405,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "homePhoneIsPrivate": {
       "type": [
@@ -428,7 +430,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "militaryIsMedalVet": {
       "type": [

@@ -5,5 +5,5 @@ class EmploymentDetails(IncrementalStream):
     tap_stream_id = "employment_details"
     key_properties = ["companyID", "employeeID"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["dateTimeCreated"]
+    replication_keys = ["dateTimeChanged"]
     path = "/personnel/v1/employment-details"

@@ -61,12 +61,13 @@ class BaseStream(ABC):
     page_size = 100
     max_pages = 100000
     page_param = "page"
-    page_size_param = "per_page"
+    page_size_param = "per_Page"
     bookmark_query_param = None
     headers = {}
     data_key = ""
     http_method = "GET"
-    access_check_params = {"per_page": 1, "page": 1}
+    access_check_params = {"per_Page": 1, "page": 1}
+    pagination_enabled = True
 
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
@@ -170,8 +171,19 @@ class BaseStream(ABC):
 
     def get_records(self) -> Iterator:
         """
-        Yield every record of the stream, requesting one page at a time.
+        Yield every record of the stream, requesting one page at a time when pagination is enabled.
         """
+        if not self.pagination_enabled:
+            response = self.client.make_request(
+                self.http_method,
+                self.url_endpoint,
+                dict(self.params),
+                self.headers,
+                path=self.path
+            )
+            yield from self.extract_records(response)
+            return
+
         page = 1
         previous_page = None
         has_more_pages = True
@@ -339,6 +351,7 @@ class IncrementalStream(BaseStream):
         self.url_endpoint = self.get_url_endpoint()
 
         skipped_records = 0
+        total_records = 0
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 record = self.modify_object(record)
@@ -356,6 +369,7 @@ class IncrementalStream(BaseStream):
                     if self.is_selected():
                         write_record(self.tap_stream_id, transformed_record)
                         counter.increment()
+                        total_records += 1
 
             if skipped_records:
                 LOGGER.info(
@@ -369,7 +383,7 @@ class IncrementalStream(BaseStream):
                 state = self.write_bookmark(
                     state, self.tap_stream_id, value=strftime(max_bookmark_dttm)
                 )
-            return counter.value
+            return total_records
 
 
 class FullTableStream(BaseStream):
@@ -384,6 +398,7 @@ class FullTableStream(BaseStream):
     ) -> int:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint()
+        total_records = 0
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 record = self.modify_object(record)
@@ -391,5 +406,6 @@ class FullTableStream(BaseStream):
                 if self.is_selected():
                     write_record(self.tap_stream_id, transformed_record)
                     counter.increment()
+                    total_records += 1
 
-            return counter.value
+            return total_records

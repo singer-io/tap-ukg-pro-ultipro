@@ -87,34 +87,39 @@ def raise_for_error(response: requests.Response) -> None:
 
     :param resp: requests.Response object
     """
+    if response.status_code in (200, 201, 204):
+        return
+
     try:
         response_json = response.json()
     except Exception:
         response_json = {}
+
     if not isinstance(response_json, dict):
         response_json = {}
-    if response.status_code not in [200, 201, 204]:
-        LOGGER.error(
-            "API request failed with HTTP-error-code: %s", response.status_code
+
+    LOGGER.error(
+        "API request failed with HTTP-error-code: %s", response.status_code
+    )
+    if response_json.get("error"):
+        message = f"HTTP-error-code: {response.status_code}, Error: {_bounded(response_json.get('error'))}"
+    else:
+        error_message = ERROR_CODE_EXCEPTION_MAPPING.get(
+            response.status_code, {}
+        ).get("message", "Unknown Error")
+        api_message = response_json.get("message", error_message)
+        message = f"HTTP-error-code: {response.status_code}, Error: {_bounded(api_message)}"
+
+    # For 5xx errors, use backoff exception if not specifically mapped
+    if 500 <= response.status_code < 600:
+        exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
+            "raise_exception", UKGProBackoffError
         )
-        if response_json.get("error"):
-            message = f"HTTP-error-code: {response.status_code}, Error: {_bounded(response_json.get('error'))}"
-        else:
-            error_message = ERROR_CODE_EXCEPTION_MAPPING.get(
-                response.status_code, {}
-            ).get("message", "Unknown Error")
-            api_message = response_json.get("message", error_message)
-            message = f"HTTP-error-code: {response.status_code}, Error: {_bounded(api_message)}"
-        # For 5xx errors, use backoff exception if not specifically mapped
-        if 500 <= response.status_code < 600:
-            exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
-                "raise_exception", UKGProBackoffError
-            )
-        else:
-            exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
-                "raise_exception", UKGProError
-            )
-        raise exc(message, response) from None
+    else:
+        exc = ERROR_CODE_EXCEPTION_MAPPING.get(response.status_code, {}).get(
+            "raise_exception", UKGProError
+        )
+    raise exc(message, response) from None
 
 class Client:
     """

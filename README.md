@@ -71,7 +71,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[insurance_rates](https://developer.ukg.com/hcm/reference/insrate_getinsrate)**
-- Primary keys: []
+- Primary keys: ['deductionCode', 'minimumAge']
 - Replication strategy: FULL_TABLE
 
 **[job_groups](https://developer.ukg.com/hcm/reference/jobgroup_get)**
@@ -175,7 +175,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[employee_education](https://developer.ukg.com/hcm/reference/employeeeducation_get)**
-- Primary keys: []
+- Primary keys: ['systemId']
 - Replication strategy: FULL_TABLE
 
 **[employee_extended_elements](https://developer.ukg.com/hcm/reference/employeeextendedelements_get)**

@@ -5,5 +5,5 @@ class EmployeeContractDetails(IncrementalStream):
     tap_stream_id = "employee_contract_details"
     key_properties = ["employeeId", "contractNumber"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["dateTimeCreated"]
+    replication_keys = ["rowLastChanged"]
     path = "/personnel/v1/employee-contract-details"

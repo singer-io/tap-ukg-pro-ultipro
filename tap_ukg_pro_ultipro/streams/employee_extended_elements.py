@@ -5,5 +5,5 @@ class EmployeeExtendedElements(IncrementalStream):
     tap_stream_id = "employee_extended_elements"
     key_properties = ["personID"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["dateTimeCreated"]
+    replication_keys = ["dateTimeChanged"]
     path = "/personnel/v1/employee-extended-elements"

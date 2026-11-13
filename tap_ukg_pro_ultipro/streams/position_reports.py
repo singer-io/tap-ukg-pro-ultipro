@@ -5,5 +5,5 @@ class PositionReports(IncrementalStream):
     tap_stream_id = "position_reports"
     key_properties = ["positionCode"]
     replication_method = "INCREMENTAL"
-    replication_keys = ["dateTimeCreated"]
+    replication_keys = ["dateTimeChanged"]
     path = "/personnel/v1/position-report"

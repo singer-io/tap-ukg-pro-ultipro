@@ -65,7 +65,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "insurance_rates": {
-                cls.PRIMARY_KEYS: { "deductionCode" },
+                cls.PRIMARY_KEYS: { "deductionCode", "minimumAge" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -107,16 +107,16 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "position_reports": {
-                cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
+                cls.PRIMARY_KEYS: { "positionCode" },
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "positions": {
                 cls.PRIMARY_KEYS: { "integrationRecordId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -163,7 +163,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "earnings_history_base_elements": {
-                cls.PRIMARY_KEYS: { "companyId", "employeeId" },
+                cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -191,7 +191,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "pay_group_payperiods": {
-                cls.PRIMARY_KEYS: { "payGroup", "payPeriodId" },
+                cls.PRIMARY_KEYS: { "payPeriodId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
                 cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
@@ -235,7 +235,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             "employee_contract_details": {
                 cls.PRIMARY_KEYS: { "employeeId", "contractNumber" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "rowLastChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -247,7 +247,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "employee_education": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "systemId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -256,14 +256,14 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             "employee_extended_elements": {
                 cls.PRIMARY_KEYS: { "personID" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "employee_job_history_details": {
-                cls.PRIMARY_KEYS: { "employeeId", "jobEffectiveDate" },
-                cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.PRIMARY_KEYS: { "systemId" },
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -283,8 +283,8 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             },
             "employee_multi_positions": {
                 cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -312,7 +312,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             "employment_details": {
                 cls.PRIMARY_KEYS: { "companyID", "employeeID" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -338,16 +338,16 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "dependent_deductions": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "systemID" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "dateTimeCreated" },
+                cls.REPLICATION_KEYS: { "dateTimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
             "person_details": {
-                cls.PRIMARY_KEYS: { "employeeId" },
+                cls.PRIMARY_KEYS: { "personId" },
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "datetimeCreated" },
+                cls.REPLICATION_KEYS: { "datetimeChanged" },
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -366,7 +366,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "employee_security_user_details": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "userID" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,

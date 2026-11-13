@@ -6,5 +6,5 @@ class EmployeeChanges(FullTableStream):
     key_properties = []
     replication_method = "FULL_TABLE"
     path = "/personnel/v1/employee-changes"
-    # Observed sync volume is ~1,583 records.
-    page_size = 1000
+    # The API limits Per_Page to a maximum of 200.
+    page_size = 200

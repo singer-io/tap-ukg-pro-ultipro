@@ -8,7 +8,7 @@ import itertools
 import unittest
 from unittest.mock import MagicMock, patch
 
-from singer import Transformer, metadata
+from singer import Transformer, metadata, metrics
 from singer.catalog import CatalogEntry, Schema
 
 from tap_ukg_pro_ultipro.client import Client, raise_for_error
@@ -66,7 +66,7 @@ def make_stream(stream_name, client, selected=True):
 
 
 def position(code, created):
-    return {"positionCode": code, "dateTimeCreated": created}
+    return {"positionCode": code, "dateTimeChanged": created}
 
 
 class TestExtractRecords(unittest.TestCase):
@@ -105,7 +105,7 @@ class TestPagination(unittest.TestCase):
         self.assertEqual(records, [{"id": 1}, {"id": 2}, {"id": 3}])
         self.assertEqual([r["params"]["page"] for r in client.requests], [1, 2, 3])
         for request in client.requests:
-            self.assertEqual(request["params"]["per_page"], stream.page_size)
+            self.assertEqual(request["params"]["per_Page"], stream.page_size)
             self.assertEqual(request["method"], "GET")
 
     def test_single_empty_page_stops_immediately(self):
@@ -122,6 +122,25 @@ class TestPagination(unittest.TestCase):
         list(stream.get_records())
 
         self.assertTrue(all(r["body"] is None for r in client.requests))
+
+
+class TestReturnedRecordCount(unittest.TestCase):
+    """sync() must return the real total, not the metrics counter value, which resets on every log."""
+
+    def test_total_survives_metrics_counter_resets(self):
+        path = STREAMS["roles"].path
+        client = make_client({path: [[{"id": 1}, {"id": 2}], [{"id": 3}]]})
+        stream = make_stream("roles", client)
+
+        # A log interval of -1 makes the counter log (and reset to 0) on every increment.
+        real_counter = metrics.record_counter
+        with patch(
+            "tap_ukg_pro_ultipro.streams.abstracts.metrics.record_counter",
+            side_effect=lambda stream_name: real_counter(stream_name, log_interval=-1),
+        ), patch(WRITE_RECORD):
+            total = stream.sync(state={}, transformer=Transformer())
+
+        self.assertEqual(total, 3)
 
     def test_endpoint_ignoring_paging_raises_instead_of_ending_successfully(self):
         client = MagicMock()
@@ -241,7 +260,7 @@ class TestIncrementalSync(unittest.TestCase):
 
     @staticmethod
     def bookmark(state):
-        return state.get("bookmarks", {}).get("positions", {}).get("dateTimeCreated")
+        return state.get("bookmarks", {}).get("positions", {}).get("dateTimeChanged")
 
     def test_first_sync_uses_start_date_and_sets_bookmark_to_max_value(self):
         count, written, state, _ = self.run_sync([[
@@ -265,7 +284,7 @@ class TestIncrementalSync(unittest.TestCase):
         self.assertIsNone(self.bookmark(state))
 
     def test_existing_bookmark_filters_older_records(self):
-        state = {"bookmarks": {"positions": {"dateTimeCreated": "2022-06-01T00:00:00.000000Z"}}}
+        state = {"bookmarks": {"positions": {"dateTimeChanged": "2022-06-01T00:00:00.000000Z"}}}
         count, written, state, _ = self.run_sync([[
             position("OLD", "2022-05-31T23:59:59Z"),
             position("SAME", "2022-06-01T00:00:00Z"),
@@ -277,7 +296,7 @@ class TestIncrementalSync(unittest.TestCase):
         self.assertEqual(self.bookmark(state), "2022-06-02T00:00:00.000000Z")
 
     def test_bookmark_does_not_move_when_no_newer_records(self):
-        original = {"bookmarks": {"positions": {"dateTimeCreated": "2022-06-01T00:00:00.000000Z"}}}
+        original = {"bookmarks": {"positions": {"dateTimeChanged": "2022-06-01T00:00:00.000000Z"}}}
         state = copy.deepcopy(original)
         _, written, state, _ = self.run_sync([[position("OLD", "2022-01-02T00:00:00Z")]], state)
 
@@ -327,7 +346,7 @@ class TestIncrementalSync(unittest.TestCase):
         _, _, _, client = self.run_sync([[position("A", "2022-03-01T00:00:00Z")]])
 
         for request in client.requests:
-            self.assertEqual(set(request["params"]), {"page", "per_page"})
+            self.assertEqual(set(request["params"]), {"page", "per_Page"})
 
     def test_configured_bookmark_query_param_is_sent(self):
         client = make_client({self.path: [[position("A", "2022-03-01T00:00:00Z")]]})
@@ -348,7 +367,7 @@ class TestIncrementalSync(unittest.TestCase):
                 stream.sync(state, transformer)
 
         self.assertEqual(
-            state["bookmarks"]["position_reports"]["dateTimeCreated"],
+            state["bookmarks"]["position_reports"]["dateTimeChanged"],
             "2022-03-01T00:00:00.000000Z",
         )
 
@@ -359,21 +378,21 @@ class TestWriteBookmark(unittest.TestCase):
         self.stream = make_stream("positions", make_client())
 
     def test_bookmark_never_moves_backwards(self):
-        state = {"bookmarks": {"positions": {"dateTimeCreated": "2022-06-01T00:00:00.000000Z"}}}
+        state = {"bookmarks": {"positions": {"dateTimeChanged": "2022-06-01T00:00:00.000000Z"}}}
         self.stream.write_bookmark(state, "positions", value="2022-05-01T00:00:00.000000Z")
 
-        self.assertEqual(state["bookmarks"]["positions"]["dateTimeCreated"], "2022-06-01T00:00:00.000000Z")
+        self.assertEqual(state["bookmarks"]["positions"]["dateTimeChanged"], "2022-06-01T00:00:00.000000Z")
 
     def test_formats_are_compared_as_datetimes(self):
         # '.' sorts before 'Z', so a string comparison would wrongly keep the start date
         state = self.stream.write_bookmark({}, "positions", value="2022-01-01T00:00:00.500000Z")
 
-        self.assertEqual(state["bookmarks"]["positions"]["dateTimeCreated"], "2022-01-01T00:00:00.500000Z")
+        self.assertEqual(state["bookmarks"]["positions"]["dateTimeChanged"], "2022-01-01T00:00:00.500000Z")
 
     def test_unparseable_values_fall_back_to_plain_comparison(self):
-        state = self.stream.write_bookmark({}, "positions", "dateTimeCreated", value="zzz")
+        state = self.stream.write_bookmark({}, "positions", "dateTimeChanged", value="zzz")
 
-        self.assertEqual(state["bookmarks"]["positions"]["dateTimeCreated"], "zzz")
+        self.assertEqual(state["bookmarks"]["positions"]["dateTimeChanged"], "zzz")
 
 
 class TestLoopSafety(unittest.TestCase):
@@ -451,7 +470,7 @@ class TestBookmarkStateValidation(unittest.TestCase):
             {},
             {"bookmarks": {}},
             {"bookmarks": {"other": {"x": 1}}},
-            {"bookmarks": {"positions": {"dateTimeCreated": "2022-06-01T00:00:00.000000Z"}}},
+            {"bookmarks": {"positions": {"dateTimeChanged": "2022-06-01T00:00:00.000000Z"}}},
             {"currently_syncing": "positions"},
         ):
             validate_bookmark_state(state, "positions")
@@ -507,7 +526,7 @@ class TestClientLogging(unittest.TestCase):
 
         with patch("tap_ukg_pro_ultipro.client.LOGGER") as mock_logger:
             with patch.object(self.client._session, "request", return_value=response):
-                self.client.make_request("GET", "", {"page": 2, "per_page": 100}, path="/configuration/v1/roles")
+                self.client.make_request("GET", "", {"page": 2, "per_Page": 100}, path="/configuration/v1/roles")
 
         text = " ".join(self.logged(mock_logger))
         encoded = base64.b64encode(b"dummy_user:dummy_password").decode()
