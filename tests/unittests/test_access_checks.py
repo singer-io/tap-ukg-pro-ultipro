@@ -81,7 +81,7 @@ class TestStreamCheckAccess(unittest.TestCase):
         self.assertEqual(args[0], "GET")
         self.assertEqual(args[1], client.build_url.return_value)
         client.build_url.assert_called_once_with(stream.path)
-        self.assertEqual(args[2], {"per_Page": 1, "page": 1})
+        self.assertEqual(args[2], {"per_page": 1, "page": 1})
 
     def test_probe_params_are_not_shared_between_calls(self):
         client = MagicMock()
@@ -89,7 +89,7 @@ class TestStreamCheckAccess(unittest.TestCase):
         stream = make_stream("roles", client)
         stream.check_access()
         client.make_request.call_args.args[2]["page"] = 99
-        self.assertEqual(stream.access_check_params, {"per_Page": 1, "page": 1})
+        self.assertEqual(stream.access_check_params, {"per_page": 1, "page": 1})
 
     @parameterized.expand([
         ["empty list", []],
@@ -167,7 +167,7 @@ class TestCheckAccessWithRealClient(unittest.TestCase):
         kwargs = req.call_args.kwargs
         self.assertEqual(method, "GET")
         self.assertEqual(url, "https://servicet.ultipro.com/configuration/v1/roles")
-        self.assertEqual(kwargs["params"], {"per_Page": 1, "page": 1})
+        self.assertEqual(kwargs["params"], {"per_page": 1, "page": 1})
         self.assertIn("Authorization", kwargs["headers"])
         self.assertEqual(kwargs["headers"]["US-Customer-Api-Key"], "dummy_api_key")
 

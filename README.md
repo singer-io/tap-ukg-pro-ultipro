@@ -68,7 +68,7 @@ endpoint and the tap keeps the records whose replication key is on or after the 
 
 Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_changes`,
 `employee_education`, `employee_multi_positions`, `employee_status`, `general_ledgers`,
-`pay_register`) have no unique
+`pay_register`, `insurance_rates`) have no unique
 row identifier in the API response. A target that merges on a primary key cannot de-duplicate
 them, so each run appends its rows unless the destination table is replaced or truncated first.
 
@@ -81,7 +81,7 @@ them, so each run appends its rows unless the destination table is replaced or t
 - Replication strategy: FULL_TABLE
 
 **[insurance_rates](https://developer.ukg.com/hcm/reference/insrate_getinsrate)**
-- Primary keys: ['deductionCode', 'minimumAge']
+- Primary keys: []
 - Replication strategy: FULL_TABLE
 
 **[job_groups](https://developer.ukg.com/hcm/reference/jobgroup_get)**

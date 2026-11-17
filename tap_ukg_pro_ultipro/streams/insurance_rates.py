@@ -3,6 +3,6 @@ from tap_ukg_pro_ultipro.streams.abstracts import FullTableStream
 
 class InsuranceRates(FullTableStream):
     tap_stream_id = "insurance_rates"
-    key_properties = ["deductionCode", "minimumAge"]
+    key_properties = []
     replication_method = "FULL_TABLE"
     path = "/configuration/v1/insurance-rate"

@@ -105,7 +105,7 @@ class TestPagination(unittest.TestCase):
         self.assertEqual(records, [{"id": 1}, {"id": 2}, {"id": 3}])
         self.assertEqual([r["params"]["page"] for r in client.requests], [1, 2, 3])
         for request in client.requests:
-            self.assertEqual(request["params"]["per_Page"], stream.page_size)
+            self.assertEqual(request["params"]["per_page"], stream.page_size)
             self.assertEqual(request["method"], "GET")
 
     def test_single_empty_page_stops_immediately(self):
@@ -346,7 +346,7 @@ class TestIncrementalSync(unittest.TestCase):
         _, _, _, client = self.run_sync([[position("A", "2022-03-01T00:00:00Z")]])
 
         for request in client.requests:
-            self.assertEqual(set(request["params"]), {"page", "per_Page"})
+            self.assertEqual(set(request["params"]), {"page", "per_page"})
 
     def test_configured_bookmark_query_param_is_sent(self):
         client = make_client({self.path: [[position("A", "2022-03-01T00:00:00Z")]]})
@@ -526,7 +526,7 @@ class TestClientLogging(unittest.TestCase):
 
         with patch("tap_ukg_pro_ultipro.client.LOGGER") as mock_logger:
             with patch.object(self.client._session, "request", return_value=response):
-                self.client.make_request("GET", "", {"page": 2, "per_Page": 100}, path="/configuration/v1/roles")
+                self.client.make_request("GET", "", {"page": 2, "per_page": 100}, path="/configuration/v1/roles")
 
         text = " ".join(self.logged(mock_logger))
         encoded = base64.b64encode(b"dummy_user:dummy_password").decode()

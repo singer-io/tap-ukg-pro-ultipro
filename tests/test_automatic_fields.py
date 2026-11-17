@@ -29,5 +29,6 @@ class ukg_pro_ultiproAutomaticFields(MinimumSelectionTest, ukg_pro_ultiproBaseTe
             "positions",
             # No unique records available for this stream
             "employee_education",
+            "insurance_rates",
         })
         return self.expected_stream_names().difference(streams_to_exclude)

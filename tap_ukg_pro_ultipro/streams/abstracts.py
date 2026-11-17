@@ -61,12 +61,12 @@ class BaseStream(ABC):
     page_size = 100
     max_pages = 100000
     page_param = "page"
-    page_size_param = "per_Page"
+    page_size_param = "per_page"
     bookmark_query_param = None
     headers = {}
     data_key = ""
     http_method = "GET"
-    access_check_params = {"per_Page": 1, "page": 1}
+    access_check_params = {"per_page": 1, "page": 1}
     pagination_enabled = True
 
     def __init__(self, client=None, catalog=None) -> None:

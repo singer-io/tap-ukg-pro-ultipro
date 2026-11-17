@@ -58,7 +58,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "insurance_rates": {
-                cls.PRIMARY_KEYS: { "deductionCode", "minimumAge" },
+                cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
