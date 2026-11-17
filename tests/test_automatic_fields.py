@@ -14,6 +14,20 @@ class ukg_pro_ultiproAutomaticFields(MinimumSelectionTest, ukg_pro_ultiproBaseTe
 
     def streams_to_test(self):
         # Exclude large-data-volume streams to avoid excessively slow test runs.
-        streams_to_exclude = self.LARGE_DATA_STREAMS
+        streams_to_exclude = self.LARGE_DATA_STREAMS.union({
+            # No data available for these streams
+            "employee_contract_details",
+            "employee_global_banks",
+            "employee_global_localization_elements",
+            "employee_multi_positions",
+            "employee_pay_deduction_elements",
+            "employee_status",
+            "general_ledgers",
+            "job_groups",
+            "national_documents",
+            "position_reports",
+            "positions",
+            # No unique records available for this stream
+            "employee_education",
+        })
         return self.expected_stream_names().difference(streams_to_exclude)
-

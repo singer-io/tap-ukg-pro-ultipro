@@ -20,14 +20,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
     start_date = "2019-01-01T00:00:00Z"
     PARENT_TAP_STREAM_ID = "parent-tap-stream-id"
 
-    # Streams with very large production data volumes (hundreds of thousands
-    # to millions of records per full sync, per scripts/profile_sync.py
-    # profiling output). Running full-sync-dependent tap-tester suites
-    # (pagination, all/automatic fields, bookmark, start date) against these
-    # streams can take tens of minutes per stream and dominate total suite
-    # runtime, so they are excluded by default from those test suites. They
-    # are still covered by discovery tests and should be spot-checked
-    # manually or via a dedicated/less frequent large-data test run.
+    # Large-volume streams excluded from all-fields and automatic-fields tests to avoid excessive suite execution time.
     LARGE_DATA_STREAMS = {
         "payroll_deductions_history",
         "pay_register",
@@ -83,7 +76,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 500
             },
             "locations": {
                 cls.PRIMARY_KEYS: { "locationCode" },
@@ -93,7 +86,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "option_rates": {
-                cls.PRIMARY_KEYS: set(),
+                cls.PRIMARY_KEYS: { "benefitOption", "deductionCode", "effectiveDate" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
@@ -135,11 +128,11 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "user_profile_details": {
-                cls.PRIMARY_KEYS: { "userId" },
+                cls.PRIMARY_KEYS: { "userId", "roleId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "org_levels": {
                 cls.PRIMARY_KEYS: { "code", "level" },
@@ -167,14 +160,14 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 10000
             },
             "direct_deposits": {
                 cls.PRIMARY_KEYS: { "accountRecordId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "general_ledgers": {
                 cls.PRIMARY_KEYS: set(),
@@ -188,7 +181,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "pay_group_payperiods": {
                 cls.PRIMARY_KEYS: { "payPeriodId" },
@@ -202,35 +195,35 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 20000
             },
             "compensation_details": {
                 cls.PRIMARY_KEYS: { "companyID", "employeeID" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_changes": {
                 cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 200
             },
             "employee_cobra_details": {
                 cls.PRIMARY_KEYS: { "personID" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "contacts": {
                 cls.PRIMARY_KEYS: { "contactId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_contract_details": {
                 cls.PRIMARY_KEYS: { "employeeId", "contractNumber" },
@@ -244,14 +237,14 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_education": {
-                cls.PRIMARY_KEYS: { "systemId" },
+                cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 500
             },
             "employee_extended_elements": {
                 cls.PRIMARY_KEYS: { "personID" },
@@ -268,11 +261,11 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "employee_multiple_jobs": {
-                cls.PRIMARY_KEYS: { "employeeId", "jobCode" },
+                cls.PRIMARY_KEYS: { "employeeId", "jobCode", "companyId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_multi_phone_numbers": {
                 cls.PRIMARY_KEYS: { "employeeId", "auditKey" },
@@ -296,11 +289,11 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "employee_supervisor_details": {
-                cls.PRIMARY_KEYS: { "employeeID" },
+                cls.PRIMARY_KEYS: { "employeeID", "companyID" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_status": {
                 cls.PRIMARY_KEYS: set(),
@@ -325,8 +318,8 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             },
             "employee_global_localization_elements": {
                 cls.PRIMARY_KEYS: { "employeeId", "fieldId" },
-                cls.REPLICATION_METHOD: cls.INCREMENTAL,
-                cls.REPLICATION_KEYS: { "created" },
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 100
             },
@@ -356,21 +349,21 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_user_defined_fields": {
                 cls.PRIMARY_KEYS: { "employeeId" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "employee_security_user_details": {
                 cls.PRIMARY_KEYS: { "userID" },
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             },
             "roles": {
                 cls.PRIMARY_KEYS: { "rolID" },
@@ -384,7 +377,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,
                 cls.REPLICATION_KEYS: set(),
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 100
+                cls.API_LIMIT: 1000
             }
         }
 
@@ -422,16 +415,11 @@ class ukg_pro_ultiproBaseTest(BaseCase):
 
         return credentials_dict
 
-    def get_properties(self, original: bool = True):
+    def get_properties(self, original: bool = True):  # pylint: disable=unused-argument
         """Configuration of properties required for the tap."""
-        return_value = {
-            "start_date": "2022-07-01T00:00:00Z"
+        return {
+            "start_date": self.start_date
         }
-        if original:
-            return return_value
-
-        return_value["start_date"] = self.start_date
-        return return_value
 
     def expected_parent_tap_stream(self, stream=None):
         """return a dictionary with key of table name and value of parent stream"""

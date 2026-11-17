@@ -77,7 +77,11 @@ class TestClient(unittest.TestCase):
         ["string value", "12", 12.0],
         ["integer value", 10, 10.0],
         ["float value", 20.0, 20.0],
-        ["zero value", 0, DEFAULT_REQUEST_TIMEOUT]
+        ["zero value", 0, DEFAULT_REQUEST_TIMEOUT],
+        ["zero string", "0", DEFAULT_REQUEST_TIMEOUT],
+        ["zero float string", "0.0", DEFAULT_REQUEST_TIMEOUT],
+        ["negative value", -5, DEFAULT_REQUEST_TIMEOUT],
+        ["negative string", "-5", DEFAULT_REQUEST_TIMEOUT],
     ])
     @patch("tap_ukg_pro_ultipro.client.session")
     def test_client_initialization(self, test_name, input_value, expected_value, mock_session):

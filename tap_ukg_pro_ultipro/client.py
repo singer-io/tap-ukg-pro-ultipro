@@ -137,7 +137,11 @@ class Client:
         self._session = session()
         self.base_url = normalize_hostname(config["hostname"])
         config_request_timeout = config.get("request_timeout")
-        self.request_timeout = float(config_request_timeout) if config_request_timeout else REQUEST_TIMEOUT
+        self.request_timeout = (
+            float(config_request_timeout)
+            if config_request_timeout and float(config_request_timeout) > 0
+            else REQUEST_TIMEOUT
+        )
 
     def __enter__(self):
         self.check_api_credentials()

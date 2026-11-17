@@ -62,6 +62,16 @@ This tap:
 
 ## Streams
 
+Incremental streams: the API has no server-side date filter, so every run reads the whole
+endpoint and the tap keeps the records whose replication key is on or after the bookmark (or
+`start_date` when there is no bookmark). The bookmark moves only after every page has been read.
+
+Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_changes`,
+`employee_education`, `employee_multi_positions`, `employee_status`, `general_ledgers`,
+`pay_register`) have no unique
+row identifier in the API response. A target that merges on a primary key cannot de-duplicate
+them, so each run appends its rows unless the destination table is replaced or truncated first.
+
 **[company_details](https://developer.ukg.com/hcm/reference/companydetails_getcompanydetails)**
 - Primary keys: ['companyId']
 - Replication strategy: FULL_TABLE
@@ -87,7 +97,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[option_rates](https://developer.ukg.com/hcm/reference/get_configuration-v1-option-rate)**
-- Primary keys: []
+- Primary keys: ['benefitOption', 'deductionCode', 'effectiveDate']
 - Replication strategy: FULL_TABLE
 
 **[organization_reporting_category](https://developer.ukg.com/hcm/reference/get_configuration-v1-organization-reporting-category)**
@@ -95,12 +105,14 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[position_reports](https://developer.ukg.com/hcm/reference/positionreport_get)**
-- Primary keys: []
-- Replication strategy: FULL_TABLE
+- Primary keys: ['positionCode']
+- Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[positions](https://developer.ukg.com/hcm/reference/get_configuration-v1-positions)**
 - Primary keys: ['integrationRecordId']
 - Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[shift_codes](https://developer.ukg.com/hcm/reference/get_configuration-v1-shift-codes)**
 - Primary keys: ['shiftCode']
@@ -111,7 +123,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[user_profile_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-user-profile-details)**
-- Primary keys: ['userId']
+- Primary keys: ['userId', 'roleId']
 - Replication strategy: FULL_TABLE
 
 **[org_levels](https://developer.ukg.com/hcm/reference/getorg-levelslist)**
@@ -143,8 +155,9 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[pay_group_payperiods](https://developer.ukg.com/hcm/reference/paygrouppayperiod_getpaygrouppayperiod)**
-- Primary keys: ['payGroup', 'payPeriodId']
+- Primary keys: ['payPeriodId']
 - Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[payroll_deductions_history](https://developer.ukg.com/hcm/reference/payrolldeductionshistory_get)**
 - Primary keys: ['recordId']
@@ -169,25 +182,27 @@ This tap:
 **[employee_contract_details](https://developer.ukg.com/hcm/reference/employeecontract_get)**
 - Primary keys: ['employeeId', 'contractNumber']
 - Replication strategy: INCREMENTAL
+- Replication key: rowLastChanged
 
 **[employee_demographic_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-employee-demographic-details)**
 - Primary keys: ['employeeId']
 - Replication strategy: FULL_TABLE
 
 **[employee_education](https://developer.ukg.com/hcm/reference/employeeeducation_get)**
-- Primary keys: ['systemId']
+- Primary keys: []
 - Replication strategy: FULL_TABLE
 
 **[employee_extended_elements](https://developer.ukg.com/hcm/reference/employeeextendedelements_get)**
 - Primary keys: ['personID']
 - Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[employee_job_history_details](https://developer.ukg.com/hcm/reference/employeejobhistorydetail_get)**
-- Primary keys: ['employeeId', 'jobEffectiveDate']
-- Replication strategy: INCREMENTAL
+- Primary keys: ['systemId']
+- Replication strategy: FULL_TABLE
 
 **[employee_multiple_jobs](https://developer.ukg.com/hcm/reference/get_personnel-v1-empl-multiple-jobs)**
-- Primary keys: ['employeeId', 'jobCode']
+- Primary keys: ['employeeId', 'jobCode', 'companyId']
 - Replication strategy: FULL_TABLE
 
 **[employee_multi_phone_numbers](https://developer.ukg.com/hcm/reference/employeemultiphonenumbers_get)**
@@ -196,48 +211,47 @@ This tap:
 
 **[employee_multi_positions](https://developer.ukg.com/hcm/reference/empmultiplepositions_get)**
 - Primary keys: []
-- Replication strategy: INCREMENTAL
+- Replication strategy: FULL_TABLE
 
 **[national_documents](https://developer.ukg.com/hcm/reference/nationaldocument_get)**
-- Data Key = data
 - Primary keys: ['employeeId', 'nationalDocumentId']
 - Replication strategy: FULL_TABLE
 
 **[employee_supervisor_details](https://developer.ukg.com/hcm/reference/employeesupervisordetails_get)**
-- Primary keys: ['employeeID']
+- Primary keys: ['employeeID', 'companyID']
 - Replication strategy: FULL_TABLE
 
 **[employee_status](https://developer.ukg.com/hcm/reference/kronosemployeestatus_get)**
-- Data Key = body
 - Primary keys: []
 - Replication strategy: FULL_TABLE
 
 **[employment_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-employment-details)**
 - Primary keys: ['companyID', 'employeeID']
 - Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[employee_global_banks](https://developer.ukg.com/hcm/reference/employeeglobalbank_get)**
-- Data Key = data
 - Primary keys: ['bankId', 'employeeId']
 - Replication strategy: FULL_TABLE
 
 **[employee_global_localization_elements](https://developer.ukg.com/hcm/reference/empgloballocalizationelement_get)**
-- Data Key = data
 - Primary keys: ['employeeId', 'fieldId']
-- Replication strategy: INCREMENTAL
+- Replication strategy: FULL_TABLE (the endpoint has no modified timestamp, only `created` and `effective`)
 
 **[employee_pay_deduction_elements](https://developer.ukg.com/hcm/reference/employeepaydeductionelement_get)**
-- Data Key = data
 - Primary keys: ['employeeId', 'payDeductionId']
 - Replication strategy: INCREMENTAL
+- Replication key: modifiedDate
 
 **[dependent_deductions](https://developer.ukg.com/hcm/reference/dependentdeductions_get)**
-- Primary keys: []
+- Primary keys: ['systemID']
 - Replication strategy: INCREMENTAL
+- Replication key: dateTimeChanged
 
 **[person_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-person-details)**
-- Primary keys: ['employeeId']
+- Primary keys: ['personId']
 - Replication strategy: INCREMENTAL
+- Replication key: datetimeChanged
 
 **[pto_plans](https://developer.ukg.com/hcm/reference/get_personnel-v1-pto-plans)**
 - Primary keys: ['employeeId', 'companyId', 'ptoPlan']
@@ -248,7 +262,7 @@ This tap:
 - Replication strategy: FULL_TABLE
 
 **[employee_security_user_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-employee-security-user-details)**
-- Primary keys: []
+- Primary keys: ['userID']
 - Replication strategy: FULL_TABLE
 
 **[roles](https://developer.ukg.com/hcm/reference/get_configuration-v1-roles)**
