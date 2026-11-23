@@ -1,6 +1,6 @@
 import singer
 from typing import Dict
-from tap_ukg_pro_ultipro.exceptions import UKGProError, UKGProForbiddenError
+from tap_ukg_pro_ultipro.exceptions import UKGProError
 from tap_ukg_pro_ultipro.streams import STREAMS
 from tap_ukg_pro_ultipro.client import Client
 
@@ -53,16 +53,7 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
                 stream.write_schema()
             LOGGER.info("START Syncing: {}".format(stream_name))
             update_currently_syncing(state, stream_name)
-            try:
-                total_records = stream.sync(state=state, transformer=transformer)
-            except UKGProForbiddenError as error:
-                LOGGER.warning(
-                    "Skipping stream %s: %s",
-                    stream_name,
-                    str(error)
-                )
-                update_currently_syncing(state, None)
-                continue
+            total_records = stream.sync(state=state, transformer=transformer)
 
             update_currently_syncing(state, None)
             LOGGER.info(

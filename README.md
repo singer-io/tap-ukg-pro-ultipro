@@ -62,9 +62,10 @@ This tap:
 
 ## Streams
 
-Incremental streams: the API has no server-side date filter, so every run reads the whole
-endpoint and the tap keeps the records whose replication key is on or after the bookmark (or
-`start_date` when there is no bookmark). The bookmark moves only after every page has been read.
+Incremental streams: the tap keeps the records whose replication key is on or after the bookmark
+(or `start_date` when there is no bookmark), except `employee_changes`, which sends the bookmark
+(or `start_date`) to the API as `startDate` and does not filter records client-side. The bookmark
+moves only after every page has been read.
 
 Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_changes`,
 `employee_education`, `employee_multi_positions`, `employee_status`, `general_ledgers`,
@@ -176,6 +177,11 @@ them, so each run appends its rows unless the destination table is replaced or t
   uses the `start_date` config value as `startDate`; later runs use the previous bookmark as
   `startDate` (no overlap), and records are not filtered client-side. The bookmark is the greatest
   `emplStatusStartDate`, capped at the run's `endDate`, and is saved only after every page is read.
+- Known limitation: `emplStatusStartDate` is an employment-status date, not a documented
+  modification timestamp, so changes to other fields may not advance the bookmark and rows can be
+  re-sent. The UKG documentation does not state whether the `startDate` / `endDate` window is
+  inclusive or captures every change in it, so the bookmark is not moved to `endDate`. Load with
+  an upsert on the primary key.
 
 **[employee_cobra_details](https://developer.ukg.com/hcm/reference/employeecobradetails_get)**
 - Primary keys: ['personID']
@@ -343,9 +349,8 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
     {
         "currently_syncing": "dummy_stream1",
         "bookmarks": {
-            "dummy_stream1": "2019-09-27T22:34:39.000000Z",
-            "dummy_stream2": "2019-09-28T15:30:26.000000Z",
-            "dummy_stream3": "2019-09-28T18:23:53Z"
+            "dummy_stream1": {"dummy_replication_key": "2019-09-27T22:34:39.000000Z"},
+            "employee_changes": {"emplStatusStartDate": "2025-11-29T00:00:00.000000Z"}
         }
     }
     ```

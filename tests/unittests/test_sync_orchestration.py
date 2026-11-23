@@ -4,7 +4,11 @@ from unittest.mock import patch
 
 from singer.catalog import Catalog
 
-from tap_ukg_pro_ultipro.exceptions import UKGProError, UKGProInternalServerError
+from tap_ukg_pro_ultipro.exceptions import (
+    UKGProError,
+    UKGProForbiddenError,
+    UKGProInternalServerError,
+)
 from tap_ukg_pro_ultipro.streams import STREAMS
 from tap_ukg_pro_ultipro.sync import get_stream_object, sync
 
@@ -176,3 +180,24 @@ class TestStateAndResume(SyncHarness):
         self.run_sync(self.catalog("jobs", "roles", "tax_groups"), client, state)
 
         self.assertEqual(self.schema_order(), ["roles", "tax_groups", "jobs"])
+
+    def test_forbidden_on_a_later_page_fails_the_sync_instead_of_skipping_the_stream(self):
+        client = make_client({ROLES: [[{"roleId": "1"}]], JOBS: [[{"jobCode": "J1"}]]})
+        original = client.make_request.side_effect
+
+        def make_request(method, endpoint, params=None, *args, **kwargs):
+            if endpoint == ROLES and params["page"] == 2:
+                raise UKGProForbiddenError("HTTP-error-code: 403")
+            return original(method, endpoint, params, *args, **kwargs)
+
+        client.make_request.side_effect = make_request
+        state = {}
+
+        with self.assertRaises(UKGProForbiddenError):
+            self.run_sync(self.catalog("roles", "jobs"), client, state)
+
+        # page 1 was emitted, the stream is kept for the rerun and the next stream never starts
+        self.assertEqual(len(self.records_of("roles")), 1)
+        self.assertEqual(state["currently_syncing"], "roles")
+        self.assertEqual(self.schema_order(), ["roles"])
+        self.assertNotIn(JOBS, {request["endpoint"] for request in client.requests})

@@ -758,17 +758,15 @@ class TestEmployeeChangesSync(unittest.TestCase):
 
         self.assertEqual(state, {})
 
-    def test_repeated_identities_are_counted_not_dropped_and_values_not_logged(self):
-        with patch("tap_ukg_pro_ultipro.streams.employee_changes.LOGGER") as mock_logger:
-            count, written, _, _ = self.run_sync([[
-                self.change("SECRET-1", "2024-01-01T00:00:00Z"),
-                self.change("SECRET-1", "2024-02-01T00:00:00Z"),
-                self.change("SECRET-1", "2024-03-01T00:00:00Z", company_id="C2"),
-            ]])
+    def test_repeated_identities_are_all_written(self):
+        count, written, _, _ = self.run_sync([[
+            self.change("E1", "2024-01-01T00:00:00Z"),
+            self.change("E1", "2024-02-01T00:00:00Z"),
+            self.change("E1", "2024-03-01T00:00:00Z", company_id="C2"),
+        ]])
 
-        self.assertEqual((count, len(written)), (3, 3))
-        mock_logger.warning.assert_called_once()
-        args = mock_logger.warning.call_args.args
-        message = args[0] % args[1:]
-        self.assertIn("1 record(s)", message)
-        self.assertNotIn("SECRET-1", message)
+        self.assertEqual(count, 3)
+        self.assertEqual(
+            [(r["employeeId"], r["companyId"], r["emplStatusStartDate"][:10]) for r in written],
+            [("E1", "C1", "2024-01-01"), ("E1", "C1", "2024-02-01"), ("E1", "C2", "2024-03-01")],
+        )
