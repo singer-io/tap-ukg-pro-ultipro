@@ -205,9 +205,9 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 1000
             },
             "employee_changes": {
-                cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
+                cls.PRIMARY_KEYS: { "employeeId", "companyId" },
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: {"emplStatusStartDate"},
                 cls.OBEYS_START_DATE: False,
                 cls.API_LIMIT: 200
             },

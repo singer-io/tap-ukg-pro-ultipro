@@ -168,8 +168,14 @@ them, so each run appends its rows unless the destination table is replaced or t
 - Replication strategy: FULL_TABLE
 
 **[employee_changes](https://developer.ukg.com/hcm/reference/employeechanges_get_all)**
-- Primary keys: []
-- Replication strategy: FULL_TABLE
+- Primary keys: ['employeeId', 'companyId']
+- Replication strategy: INCREMENTAL
+- Replication key: emplStatusStartDate
+- Every request sends explicit `startDate` / `endDate` (the API's implicit "since the last call"
+  window is never used, including by discovery). `endDate` is captured once per run. The first run
+  uses the `start_date` config value as `startDate`; later runs use the previous bookmark as
+  `startDate` (no overlap), and records are not filtered client-side. The bookmark is the greatest
+  `emplStatusStartDate`, capped at the run's `endDate`, and is saved only after every page is read.
 
 **[employee_cobra_details](https://developer.ukg.com/hcm/reference/employeecobradetails_get)**
 - Primary keys: ['personID']
@@ -284,7 +290,7 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
 | `password` | Web service account password |
 | `api_key` | User API key of the web service account, sent as the `US-Customer-Api-Key` header |
 | `hostname` | Host of your UKG Pro tenant, for example `servicet.ultipro.com`. Must be a subdomain of `ultipro.com`, `ultipro.ca` or `ukg.com`, with no port, path or credentials (an `https://` prefix is accepted; `http://` is rejected) |
-| `start_date` | Default start date (RFC 3339) for incremental streams |
+| `start_date` | Default start date (RFC 3339) for incremental streams. For `employee_changes` it is the initial `startDate` sent to the API on the first run (use `2000-01-01T00:00:00Z` for full history); later runs use the bookmark |
 
 
 ## Quick Start

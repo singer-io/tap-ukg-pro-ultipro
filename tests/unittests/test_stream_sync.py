@@ -6,6 +6,7 @@ import copy
 import inspect
 import itertools
 import unittest
+from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock, patch
 
 from singer import Transformer, metadata, metrics
@@ -583,3 +584,191 @@ class TestClientNoContent(unittest.TestCase):
 
         with patch.object(client._session, "request", return_value=response):
             self.assertIsNone(client.make_request("GET", "", path="/configuration/v1/roles"))
+
+
+class TestEmployeeChangesSync(unittest.TestCase):
+    """employee_changes: explicit extraction window and bookmarking on emplStatusStartDate."""
+    stream_name = "employee_changes"
+    path = STREAMS["employee_changes"].path
+    now = datetime(2026, 11, 20, 12, 0, 0, tzinfo=timezone.utc)
+    now_param = "2026-11-20T12:00:00Z"
+    write_record = "tap_ukg_pro_ultipro.streams.employee_changes.write_record"
+    utc_now = "tap_ukg_pro_ultipro.streams.employee_changes.utc_now"
+
+    @staticmethod
+    def change(employee_id, status_start, company_id="C1"):
+        return {"employeeId": employee_id, "companyId": company_id, "emplStatusStartDate": status_start}
+
+    @staticmethod
+    def state_with(value):
+        return {"bookmarks": {"employee_changes": {"emplStatusStartDate": value}}}
+
+    @staticmethod
+    def bookmark(state):
+        return state.get("bookmarks", {}).get("employee_changes", {}).get("emplStatusStartDate")
+
+    def run_sync(self, pages=None, state=None, client=None):
+        client = client or make_client({self.path: pages})
+        stream = make_stream(self.stream_name, client)
+        state = {} if state is None else state
+        with patch(self.utc_now, return_value=self.now), patch(self.write_record) as mock_write:
+            with Transformer() as transformer:
+                count = stream.sync(state, transformer)
+        written = [call.args[1] for call in mock_write.call_args_list]
+        return count, written, state, client
+
+    def failing_client(self, first_page):
+        client = make_client({self.path: [first_page]})
+        original = client.make_request.side_effect
+
+        def make_request(method, endpoint, params=None, *args, **kwargs):
+            if params["page"] == 2:
+                raise UKGProInternalServerError("HTTP-error-code: 500")
+            return original(method, endpoint, params, *args, **kwargs)
+
+        client.make_request.side_effect = make_request
+        return client
+
+    def test_stream_definition(self):
+        stream_class = STREAMS[self.stream_name]
+        self.assertEqual(stream_class.key_properties, ["employeeId", "companyId"])
+        self.assertEqual(stream_class.replication_method, "INCREMENTAL")
+        self.assertEqual(stream_class.replication_keys, ["emplStatusStartDate"])
+        self.assertEqual(stream_class.page_size, 200)
+
+    def test_first_run_uses_config_start_date_and_a_fixed_end_date(self):
+        _, _, _, client = self.run_sync([[self.change("E1", "2024-01-01T00:00:00Z")]])
+
+        self.assertEqual(client.requests[0]["endpoint"], self.path)
+        self.assertEqual(client.requests[0]["params"], {
+            "startDate": START_DATE, "endDate": self.now_param, "per_page": 200, "page": 1,
+        })
+
+    def test_initial_start_date_follows_the_config_value(self):
+        client = make_client({self.path: [[]]})
+        client.config = {"start_date": "2000-01-01T00:00:00Z"}
+
+        self.run_sync(client=client)
+
+        self.assertEqual(client.requests[0]["params"]["startDate"], "2000-01-01T00:00:00Z")
+
+    def test_missing_invalid_or_future_start_date_fails_before_any_request(self):
+        for config in ({}, {"start_date": "not-a-date"}, {"start_date": "2027-01-01T00:00:00Z"}):
+            client = make_client({self.path: [[]]})
+            client.config = config
+
+            with self.assertRaises(UKGProError, msg=repr(config)):
+                self.run_sync(client=client)
+
+            self.assertEqual(client.requests, [])
+
+    def test_later_runs_use_the_previous_bookmark_as_start_date(self):
+        _, _, _, client = self.run_sync([[]], self.state_with("2025-06-15T08:30:00.000000Z"))
+
+        self.assertEqual(client.requests[0]["params"], {
+            "startDate": "2025-06-15T08:30:00Z", "endDate": self.now_param, "per_page": 200, "page": 1,
+        })
+
+    def test_end_date_is_captured_once_and_reused_by_every_page(self):
+        client = make_client({self.path: [
+            [self.change("E1", "2024-01-01T00:00:00Z")],
+            [self.change("E2", "2024-01-02T00:00:00Z")],
+            [self.change("E3", "2024-01-03T00:00:00Z")],
+        ]})
+        stream = make_stream(self.stream_name, client)
+        clock = [self.now + timedelta(minutes=10 * i) for i in range(20)]
+
+        with patch(self.utc_now, side_effect=clock) as mock_now, patch(self.write_record):
+            with Transformer() as transformer:
+                stream.sync({}, transformer)
+
+        self.assertEqual(mock_now.call_count, 1)
+        self.assertEqual([r["params"]["page"] for r in client.requests], [1, 2, 3, 4])
+        self.assertEqual({r["params"]["endDate"] for r in client.requests}, {self.now_param})
+        self.assertEqual({r["params"]["startDate"] for r in client.requests}, {START_DATE})
+
+    def test_bookmark_is_the_greatest_status_date_and_records_are_not_filtered(self):
+        state = self.state_with("2025-06-15T08:30:00.000000Z")
+        count, written, state, _ = self.run_sync([[
+            self.change("OLDER", "2025-06-15T08:00:00Z"),
+            self.change("NEWER", "2025-06-16T00:00:00Z"),
+            self.change("NULL", None),
+            {"employeeId": "MISSING"},
+        ]], state)
+
+        self.assertEqual(count, 4)
+        self.assertEqual([r["employeeId"] for r in written], ["OLDER", "NEWER", "NULL", "MISSING"])
+        self.assertEqual(self.bookmark(state), "2025-06-16T00:00:00.000000Z")
+
+    def test_bookmark_is_capped_at_end_date_and_never_moves_backwards(self):
+        _, _, state, _ = self.run_sync([[self.change("E1", "2027-05-01T00:00:00Z")]])
+        self.assertEqual(self.bookmark(state), "2026-11-20T12:00:00.000000Z")
+
+        original = self.state_with("2025-06-15T08:30:00.000000Z")
+        state = copy.deepcopy(original)
+        self.run_sync([[self.change("E1", "2025-06-10T00:00:00Z")]], state)
+        self.assertEqual(state, original)
+
+    def test_no_records_and_unrelated_state(self):
+        _, written, state, _ = self.run_sync([[]])
+        self.assertEqual((written, state), ([], {}))
+
+        state = self.state_with("2025-06-15T08:30:00.000000Z")
+        state["bookmarks"]["positions"] = {"dateTimeChanged": "2025-01-01T00:00:00.000000Z"}
+        state["currently_syncing"] = self.stream_name
+        expected = copy.deepcopy(state)
+        expected["bookmarks"][self.stream_name]["emplStatusStartDate"] = "2025-07-01T00:00:00.000000Z"
+
+        self.run_sync([[self.change("E1", "2025-07-01T00:00:00Z")]], state)
+
+        self.assertEqual(state, expected)
+
+    def test_bad_bookmark_state_fails_before_any_request(self):
+        for state in (
+            {"bookmarks": {self.stream_name: "2025-06-15T08:30:00Z"}},
+            self.state_with("not-a-date"),
+            self.state_with("2027-01-01T00:00:00.000000Z"),
+        ):
+            client = make_client({self.path: [[]]})
+
+            with self.assertRaises(UKGProError, msg=repr(state)):
+                self.run_sync(state=state, client=client)
+
+            self.assertEqual(client.requests, [])
+
+    def test_failure_on_a_later_page_leaves_state_untouched(self):
+        for original in ({}, self.state_with("2025-06-15T08:30:00.000000Z")):
+            state = copy.deepcopy(original)
+            client = self.failing_client([self.change("E1", "2025-08-01T00:00:00Z")])
+
+            with self.assertRaises(UKGProInternalServerError):
+                self.run_sync(state=state, client=client)
+
+            self.assertEqual(state, original)
+
+    def test_looping_pagination_fails_instead_of_saving_a_bookmark(self):
+        client = MagicMock()
+        client.config = {"start_date": START_DATE}
+        client.build_url.side_effect = lambda path: path
+        client.make_request.return_value = [self.change("E1", "2025-08-01T00:00:00Z")]
+        state = {}
+
+        with self.assertRaises(UKGProError):
+            self.run_sync(state=state, client=client)
+
+        self.assertEqual(state, {})
+
+    def test_repeated_identities_are_counted_not_dropped_and_values_not_logged(self):
+        with patch("tap_ukg_pro_ultipro.streams.employee_changes.LOGGER") as mock_logger:
+            count, written, _, _ = self.run_sync([[
+                self.change("SECRET-1", "2024-01-01T00:00:00Z"),
+                self.change("SECRET-1", "2024-02-01T00:00:00Z"),
+                self.change("SECRET-1", "2024-03-01T00:00:00Z", company_id="C2"),
+            ]])
+
+        self.assertEqual((count, len(written)), (3, 3))
+        mock_logger.warning.assert_called_once()
+        args = mock_logger.warning.call_args.args
+        message = args[0] % args[1:]
+        self.assertIn("1 record(s)", message)
+        self.assertNotIn("SECRET-1", message)

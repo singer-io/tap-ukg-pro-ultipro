@@ -2,6 +2,7 @@ import io
 import json
 import unittest
 from contextlib import redirect_stdout
+from datetime import datetime, timezone
 from unittest.mock import MagicMock, patch
 
 from parameterized import parameterized
@@ -303,3 +304,29 @@ class TestDiscover(unittest.TestCase):
         mock_discover.assert_called_once_with(client)
         emitted = json.loads(buffer.getvalue())
         self.assertEqual([s["tap_stream_id"] for s in emitted["streams"]], ["roles"])
+
+
+class TestEmployeeChangesProbe(unittest.TestCase):
+    """employee_changes probes with an explicit window; other streams keep the default probe."""
+    now = datetime(2026, 11, 20, 12, 0, 0, tzinfo=timezone.utc)
+    utc_now = "tap_ukg_pro_ultipro.streams.employee_changes.utc_now"
+
+    def test_probe_sends_an_explicit_three_hour_window(self):
+        client = MagicMock()
+        client.build_url.side_effect = lambda path: path
+        client.make_request.return_value = []
+        stream = make_stream("employee_changes", client)
+
+        with patch(self.utc_now, return_value=self.now):
+            self.assertTrue(stream.check_access())
+
+        args = client.make_request.call_args.args
+        self.assertEqual(args[1], STREAMS["employee_changes"].path)
+        self.assertEqual(args[2], {
+            "per_page": 1, "page": 1,
+            "startDate": "2026-11-20T09:00:00Z", "endDate": "2026-11-20T12:00:00Z",
+        })
+        self.assertEqual(stream.params, {})
+
+    def test_other_streams_keep_the_default_probe_params(self):
+        self.assertEqual(STREAMS["roles"].access_check_params, {"per_page": 1, "page": 1})
