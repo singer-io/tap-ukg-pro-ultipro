@@ -10,7 +10,7 @@ setup(name="tap-ukg-pro-ultipro",
       py_modules=["tap_ukg_pro_ultipro"],
       install_requires=[
         "singer-python==6.8.0",
-        "requests==2.32.4",
+        "requests==2.34.2",
         "backoff==2.2.1",
       ],
       extras_require={
