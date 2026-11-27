@@ -156,7 +156,7 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "earnings_history_base_elements": {
-                cls.PRIMARY_KEYS: { "companyId", "employeeId", "jobCode", "payDate" },
+                cls.PRIMARY_KEYS: set(),
                 cls.REPLICATION_METHOD: cls.INCREMENTAL,
                 cls.REPLICATION_KEYS: { "payDate" },
                 cls.OBEYS_START_DATE: False,

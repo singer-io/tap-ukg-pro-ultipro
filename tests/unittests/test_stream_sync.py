@@ -770,3 +770,162 @@ class TestEmployeeChangesSync(unittest.TestCase):
             [(r["employeeId"], r["companyId"], r["emplStatusStartDate"][:10]) for r in written],
             [("E1", "C1", "2024-01-01"), ("E1", "C1", "2024-02-01"), ("E1", "C2", "2024-03-01")],
         )
+
+
+class TestDailyPayDateStreams(unittest.TestCase):
+    """earnings_history_base_elements and payroll_deductions_history: one payDate request series per day."""
+    today = datetime(2025, 6, 3, 15, 0, tzinfo=timezone.utc)
+    clock = "tap_ukg_pro_ultipro.streams.{}.datetime"
+    names = ("earnings_history_base_elements", "payroll_deductions_history")
+
+    @staticmethod
+    def record(name, n, day):
+        row = {"employeeId": "E%d" % n, "companyId": "C", "payDate": "%sT00:00:00Z" % day}
+        if name == "payroll_deductions_history":
+            row["recordId"] = n
+        return row
+
+    def run_sync(self, name, data, state=None, start_date=START_DATE, entry=None):
+        client = MagicMock()
+        client.config = {"start_date": start_date}
+        client.build_url.side_effect = lambda path: path
+        client.requests = []
+
+        def make_request(method, endpoint, params=None, headers=None, body=None, path=None):
+            client.requests.append(dict(params))
+            rows = data.get(params["payDate"], [])
+            start = (params["page"] - 1) * params["per_page"]
+            return rows[start:start + params["per_page"]]
+
+        client.make_request.side_effect = make_request
+        today = self.today
+
+        class FakeDatetime(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return today
+
+        stream = STREAMS[name](client, entry or make_entry(name))
+        state = {} if state is None else state
+        with patch(self.clock.format(name), FakeDatetime), patch(WRITE_RECORD) as mock_write:
+            with Transformer() as transformer:
+                stream.sync(state, transformer)
+        return [call.args[1] for call in mock_write.call_args_list], client.requests, state
+
+    def test_stream_definitions(self):
+        self.assertEqual(STREAMS["earnings_history_base_elements"].key_properties, [])
+        self.assertEqual(STREAMS["payroll_deductions_history"].key_properties, ["recordId"])
+        for name in self.names:
+            self.assertEqual(STREAMS[name].replication_method, "INCREMENTAL")
+            self.assertEqual(STREAMS[name].replication_keys, ["payDate"])
+
+    def test_one_request_series_per_day_from_the_start_day_to_today(self):
+        for name in self.names:
+            with self.subTest(name):
+                data = {"2025-06-01": [self.record(name, n, "2025-06-01") for n in range(1500)]}
+                written, requests, state = self.run_sync(name, data, start_date="2025-05-31T00:00:00Z")
+
+                self.assertEqual(len(written), 1500)
+                self.assertEqual(
+                    [(r["payDate"], r["page"]) for r in requests],
+                    [("2025-05-31", 1), ("2025-06-01", 1), ("2025-06-01", 2), ("2025-06-01", 3),
+                     ("2025-06-02", 1), ("2025-06-03", 1)],
+                )
+                self.assertEqual(state["bookmarks"][name]["payDate"], "2025-06-01T00:00:00.000000Z")
+
+    def test_start_date_with_a_time_of_day_still_reads_that_days_records(self):
+        for name in self.names:
+            with self.subTest(name):
+                data = {"2025-06-01": [self.record(name, 1, "2025-06-01")]}
+                written, requests, _ = self.run_sync(name, data, start_date="2025-06-01T12:00:00Z")
+
+                self.assertEqual(requests[0]["payDate"], "2025-06-01")
+                self.assertEqual(len(written), 1)
+
+    def test_bookmark_with_a_time_of_day_still_reads_that_days_records(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-01T12:00:00.000000Z"}}}
+                data = {
+                    "2025-06-01": [self.record(name, 1, "2025-06-01")],
+                    "2025-06-02": [self.record(name, 2, "2025-06-02")],
+                }
+                written, requests, state = self.run_sync(name, data, state)
+
+                self.assertEqual(requests[0]["payDate"], "2025-06-01")
+                self.assertEqual(len(written), 2)
+                self.assertEqual(state["bookmarks"][name]["payDate"], "2025-06-02T00:00:00.000000Z")
+
+    def test_non_utc_and_naive_bookmarks_are_converted_to_utc_before_truncating(self):
+        cases = (
+            ("2025-06-01T02:00:00+05:30", "2025-05-31"),
+            ("2025-06-01T23:00:00-05:00", "2025-06-02"),
+            ("2025-06-01T12:00:00", "2025-06-01"),
+        )
+        for name in self.names:
+            for value, expected_day in cases:
+                with self.subTest(stream=name, bookmark=value):
+                    state = {"bookmarks": {name: {"payDate": value}}}
+                    _, requests, _ = self.run_sync(name, {}, state)
+
+                    self.assertEqual(requests[0]["payDate"], expected_day)
+
+    def test_bookmark_day_is_read_again_and_earlier_days_are_not_requested(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                data = {"2025-06-02": [self.record(name, 2, "2025-06-02")]}
+                written, requests, _ = self.run_sync(name, data, state)
+
+                self.assertEqual(sorted({r["payDate"] for r in requests}), ["2025-06-02", "2025-06-03"])
+                self.assertEqual(len(written), 1)
+
+    def test_payDate_is_kept_and_bookmarked_when_a_saved_catalog_deselects_it(self):
+        for name in self.names:
+            with self.subTest(name):
+                entry = make_entry(name)
+                mdata = metadata.to_map(entry.metadata)
+                mdata = metadata.write(mdata, ("properties", "payDate"), "inclusion", "available")
+                mdata = metadata.write(mdata, ("properties", "payDate"), "selected", False)
+                entry.metadata = metadata.to_list(mdata)
+                data = {"2025-06-02": [self.record(name, 2, "2025-06-02")]}
+
+                written, _, state = self.run_sync(name, data, entry=entry)
+
+                self.assertEqual(written[0]["payDate"], "2025-06-02T00:00:00.000000Z")
+                self.assertEqual(state["bookmarks"][name]["payDate"], "2025-06-02T00:00:00.000000Z")
+
+    def test_failure_on_a_later_day_leaves_state_untouched(self):
+        for name in self.names:
+            with self.subTest(name):
+                client = MagicMock()
+                client.config = {"start_date": "2025-06-01T00:00:00Z"}
+                client.build_url.side_effect = lambda path: path
+
+                def make_request(method, endpoint, params=None, *args, **kwargs):
+                    if params["payDate"] == "2025-06-02":
+                        raise UKGProInternalServerError("HTTP-error-code: 500")
+                    return [self.record(name, 1, "2025-06-01")] if params["page"] == 1 else []
+
+                client.make_request.side_effect = make_request
+                stream = STREAMS[name](client, make_entry(name))
+                state = {}
+                today = self.today
+
+                class FakeDatetime(datetime):
+                    @classmethod
+                    def now(cls, tz=None):
+                        return today
+
+                with patch(self.clock.format(name), FakeDatetime), patch(WRITE_RECORD):
+                    with Transformer() as transformer:
+                        with self.assertRaises(UKGProInternalServerError):
+                            stream.sync(state, transformer)
+
+                self.assertEqual(state, {})
+
+    def test_other_incremental_streams_keep_their_bookmark_handling(self):
+        stream = make_stream("positions", make_client())
+
+        self.assertEqual(stream.get_bookmark({}, "positions"), START_DATE)
+        self.assertFalse(hasattr(stream, "_start_bookmark"))
