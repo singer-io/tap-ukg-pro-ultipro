@@ -67,8 +67,7 @@ Incremental streams: the tap keeps the records whose replication key is on or af
 (or `start_date`) to the API as `startDate` and does not filter records client-side. The bookmark
 moves only after every page has been read.
 
-Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_education`,
-`employee_multi_positions`, `employee_status`, `general_ledgers`, `pay_register`, `insurance_rates`) have no unique
+Streams listed with `Primary keys: []` (`employee_education`, `employee_multi_positions`, `employee_status`, `general_ledgers`, `pay_register`, `insurance_rates`) have no unique
 row identifier in the API response. A target that merges on a primary key cannot de-duplicate
 them, so each run appends its rows unless the destination table is replaced or truncated first.
 
@@ -139,8 +138,9 @@ them, so each run appends its rows unless the destination table is replaced or t
 - Replication strategy: FULL_TABLE
 
 **[earnings_history_base_elements](https://developer.ukg.com/hcm/reference/earningshistory_getinsrate)**
-- Primary keys: []
-- Replication strategy: FULL_TABLE
+- Primary keys: ['companyId', 'employeeId', 'jobCode', 'payDate']
+- Replication strategy: INCREMENTAL
+- Replication key: payDate
 
 **[direct_deposits](https://developer.ukg.com/hcm/reference/get_payroll-v1-direct-deposit)**
 - Primary keys: ['accountRecordId']
@@ -161,7 +161,8 @@ them, so each run appends its rows unless the destination table is replaced or t
 
 **[payroll_deductions_history](https://developer.ukg.com/hcm/reference/payrolldeductionshistory_get)**
 - Primary keys: ['recordId']
-- Replication strategy: FULL_TABLE
+- Replication strategy: INCREMENTAL
+- Replication key: payDate
 
 **[compensation_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-compensation-details)**
 - Primary keys: ['companyID', 'employeeID']

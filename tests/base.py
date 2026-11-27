@@ -156,11 +156,11 @@ class ukg_pro_ultiproBaseTest(BaseCase):
                 cls.API_LIMIT: 100
             },
             "earnings_history_base_elements": {
-                cls.PRIMARY_KEYS: set(),
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
+                cls.PRIMARY_KEYS: { "companyId", "employeeId", "jobCode", "payDate" },
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: { "payDate" },
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 10000
+                cls.API_LIMIT: 1000
             },
             "direct_deposits": {
                 cls.PRIMARY_KEYS: { "accountRecordId" },
@@ -192,10 +192,10 @@ class ukg_pro_ultiproBaseTest(BaseCase):
             },
             "payroll_deductions_history": {
                 cls.PRIMARY_KEYS: { "recordId" },
-                cls.REPLICATION_METHOD: cls.FULL_TABLE,
-                cls.REPLICATION_KEYS: set(),
+                cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                cls.REPLICATION_KEYS: { "payDate" },
                 cls.OBEYS_START_DATE: False,
-                cls.API_LIMIT: 20000
+                cls.API_LIMIT: 1000
             },
             "compensation_details": {
                 cls.PRIMARY_KEYS: { "companyID", "employeeID" },
