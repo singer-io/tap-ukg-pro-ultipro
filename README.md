@@ -143,7 +143,8 @@ them, so each run appends its rows unless the destination table is replaced or t
 - Replication strategy: INCREMENTAL
 - Replication key: payDate
 - One `payDate=YYYY-MM-DD` request series per day, from the UTC day of the bookmark (or `start_date`) to today.
-
+  The bookmark day (plus `lookback_days` earlier days, if set) is sent again on every run. Because this stream has no primary key, the target cannot de-duplicate records. Replace each affected `payDate` partition before loading its newly extracted records.
+  
 **[direct_deposits](https://developer.ukg.com/hcm/reference/get_payroll-v1-direct-deposit)**
 - Primary keys: ['accountRecordId']
 - Replication strategy: FULL_TABLE
@@ -166,7 +167,7 @@ them, so each run appends its rows unless the destination table is replaced or t
 - Replication strategy: INCREMENTAL
 - Replication key: payDate
 - One `payDate=YYYY-MM-DD` request series per day, from the UTC day of the bookmark (or `start_date`) to today.
-  The bookmark day is read again on every run, so load on `recordId`.
+  The bookmark day is re-read on every run, along with the preceding `lookback_days` (if configured). Use `recordId` as the target-side upserts or deduplication.
 
 **[compensation_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-compensation-details)**
 - Primary keys: ['companyID', 'employeeID']
@@ -334,6 +335,7 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
    - `start_date` (string, required) - the default value to use if no bookmark exists for an endpoint (rfc3339 date string)
    - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-ukg_pro_ultipro <api_user_email@your_company.com>`
    - `request_timeout` (integer, optional): Max time in seconds for request to wait for response. Default: `300`
+   - `lookback_days` (integer, optional): For `earnings_history_base_elements` and `payroll_deductions_history`, also re-read this many days before the bookmark to pick up late or retroactive records. The lookback never moves the extraction start earlier than `start_date`. Default: `0`
 
     ```json
     {

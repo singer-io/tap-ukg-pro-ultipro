@@ -785,9 +785,9 @@ class TestDailyPayDateStreams(unittest.TestCase):
             row["recordId"] = n
         return row
 
-    def run_sync(self, name, data, state=None, start_date=START_DATE, entry=None):
+    def run_sync(self, name, data, state=None, start_date=START_DATE, entry=None, **config):
         client = MagicMock()
-        client.config = {"start_date": start_date}
+        client.config = {"start_date": start_date, **config}
         client.build_url.side_effect = lambda path: path
         client.requests = []
 
@@ -869,6 +869,97 @@ class TestDailyPayDateStreams(unittest.TestCase):
                     _, requests, _ = self.run_sync(name, {}, state)
 
                     self.assertEqual(requests[0]["payDate"], expected_day)
+
+    def test_lookback_days_rereads_the_last_days_before_the_bookmark(self):
+        for name in self.names:
+            with self.subTest(name):
+                original = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                state = copy.deepcopy(original)
+                data = {
+                    "2025-05-30": [self.record(name, 1, "2025-05-30")],
+                    "2025-06-02": [self.record(name, 2, "2025-06-02")],
+                }
+                written, requests, state = self.run_sync(name, data, state, lookback_days=3)
+
+                self.assertEqual(requests[0]["payDate"], "2025-05-30")
+                self.assertEqual(len(written), 2)
+                self.assertEqual(state, original)
+
+    def test_lookback_never_goes_before_start_date_or_applies_to_the_first_run(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                _, requests, _ = self.run_sync(name, {}, state, start_date="2025-06-01T00:00:00Z", lookback_days=10)
+                self.assertEqual(requests[0]["payDate"], "2025-06-01")
+
+                _, requests, _ = self.run_sync(name, {}, start_date="2025-06-01T00:00:00Z", lookback_days=5)
+                self.assertEqual(requests[0]["payDate"], "2025-06-01")
+
+    def test_lookback_days_accepts_a_numeric_string(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                _, requests, _ = self.run_sync(name, {}, state, lookback_days="1")
+                self.assertEqual(requests[0]["payDate"], "2025-06-01")
+
+    def test_a_bookmark_before_start_date_is_never_moved_forward(self):
+        for name in self.names:
+            for lookback in (0, 5):
+                with self.subTest(stream=name, lookback_days=lookback):
+                    state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                    _, requests, _ = self.run_sync(
+                        name, {}, state, start_date="2025-06-10T00:00:00Z", lookback_days=lookback
+                    )
+                    self.assertEqual(requests[0]["payDate"], "2025-06-02")
+
+    def test_a_huge_lookback_is_capped_at_start_date(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                _, requests, _ = self.run_sync(
+                    name, {}, state, start_date="2025-05-20T00:00:00Z", lookback_days=10 ** 12
+                )
+                self.assertEqual(requests[0]["payDate"], "2025-05-20")
+
+    def test_bookmark_advances_with_lookback_and_replayed_days_do_not_lower_it(self):
+        for name in self.names:
+            with self.subTest(name):
+                state = {"bookmarks": {name: {"payDate": "2025-06-02T00:00:00.000000Z"}}}
+                data = {
+                    "2025-05-30": [self.record(name, 1, "2025-05-30")],
+                    "2025-06-02": [self.record(name, 2, "2025-06-02")],
+                    "2025-06-03": [self.record(name, 3, "2025-06-03")],
+                }
+                written, _, state = self.run_sync(name, data, state, lookback_days=3)
+
+                self.assertEqual(len(written), 3)
+                self.assertEqual(state["bookmarks"][name]["payDate"], "2025-06-03T00:00:00.000000Z")
+
+    def test_replayed_days_keep_a_stored_bookmark_that_has_a_time_of_day(self):
+        for name in self.names:
+            with self.subTest(name):
+                original = {"bookmarks": {name: {"payDate": "2025-06-02T12:00:00.000000Z"}}}
+                state = copy.deepcopy(original)
+                data = {"2025-06-01": [self.record(name, 1, "2025-06-01")]}
+                written, _, state = self.run_sync(name, data, state, lookback_days=2)
+
+                self.assertEqual(len(written), 1)
+                self.assertEqual(state, original)
+
+    def test_invalid_lookback_days_fails_before_any_request(self):
+        for name in self.names:
+            for value in (-1, "abc", 1.5, True):
+                with self.subTest(stream=name, value=value):
+                    client = MagicMock()
+                    client.config = {"start_date": START_DATE, "lookback_days": value}
+                    client.build_url.side_effect = lambda path: path
+                    stream = STREAMS[name](client, make_entry(name))
+
+                    with patch(WRITE_RECORD), Transformer() as transformer:
+                        with self.assertRaises(UKGProError):
+                            stream.sync({}, transformer)
+
+                    client.make_request.assert_not_called()
 
     def test_bookmark_day_is_read_again_and_earlier_days_are_not_requested(self):
         for name in self.names:
