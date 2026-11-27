@@ -65,10 +65,10 @@ This tap:
 Incremental streams: the tap keeps the records whose replication key is on or after the bookmark
 (or `start_date` when there is no bookmark), except `employee_changes`, which sends the bookmark
 (or `start_date`) to the API as `startDate` and does not filter records client-side. The bookmark
-moves only after every page has been read.
+moves only after every page has been read. `earnings_history_base_elements` and
+`payroll_deductions_history` request one `payDate` day at a time instead, starting at UTC midnight of the bookmark day.
 
-Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_education`,
-`employee_multi_positions`, `employee_status`, `general_ledgers`, `pay_register`, `insurance_rates`) have no unique
+Streams listed with `Primary keys: []` (`earnings_history_base_elements`, `employee_education`, `employee_multi_positions`, `employee_status`, `general_ledgers`, `pay_register`, `insurance_rates`) have no unique
 row identifier in the API response. A target that merges on a primary key cannot de-duplicate
 them, so each run appends its rows unless the destination table is replaced or truncated first.
 
@@ -140,8 +140,11 @@ them, so each run appends its rows unless the destination table is replaced or t
 
 **[earnings_history_base_elements](https://developer.ukg.com/hcm/reference/earningshistory_getinsrate)**
 - Primary keys: []
-- Replication strategy: FULL_TABLE
-
+- Replication strategy: INCREMENTAL
+- Replication key: payDate
+- One `payDate=YYYY-MM-DD` request series per day, from the UTC day of the bookmark (or `start_date`) to today.
+  The bookmark day (plus `lookback_days` earlier days, if set) is sent again on every run. Because this stream has no primary key, the target cannot de-duplicate records. Replace each affected `payDate` partition before loading its newly extracted records.
+  
 **[direct_deposits](https://developer.ukg.com/hcm/reference/get_payroll-v1-direct-deposit)**
 - Primary keys: ['accountRecordId']
 - Replication strategy: FULL_TABLE
@@ -161,7 +164,10 @@ them, so each run appends its rows unless the destination table is replaced or t
 
 **[payroll_deductions_history](https://developer.ukg.com/hcm/reference/payrolldeductionshistory_get)**
 - Primary keys: ['recordId']
-- Replication strategy: FULL_TABLE
+- Replication strategy: INCREMENTAL
+- Replication key: payDate
+- One `payDate=YYYY-MM-DD` request series per day, from the UTC day of the bookmark (or `start_date`) to today.
+  The bookmark day is re-read on every run, along with the preceding `lookback_days` (if configured). Use `recordId` as the target-side upserts or deduplication.
 
 **[compensation_details](https://developer.ukg.com/hcm/reference/get_personnel-v1-compensation-details)**
 - Primary keys: ['companyID', 'employeeID']
@@ -329,6 +335,7 @@ The tap uses HTTP Basic authentication together with the UKG Pro customer API ke
    - `start_date` (string, required) - the default value to use if no bookmark exists for an endpoint (rfc3339 date string)
    - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-ukg_pro_ultipro <api_user_email@your_company.com>`
    - `request_timeout` (integer, optional): Max time in seconds for request to wait for response. Default: `300`
+   - `lookback_days` (integer, optional): For `earnings_history_base_elements` and `payroll_deductions_history`, also re-read this many days before the bookmark to pick up late or retroactive records. The lookback never moves the extraction start earlier than `start_date`. Default: `0`
 
     ```json
     {
